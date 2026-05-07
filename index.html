@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nesma — personal site</title>
+<meta name="description" content="Personal website of Nesma." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Familjen+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- TOKENS ---------- */
+  :root {
+    --bg: #F4E9EA;
+    --ink: #1A1414;
+    --paper: #FFF8F0;
+    --peach: #EBAC6D;
+    --coral: #D0684B;
+    --pink: #E44C8D;
+    --pink-soft: #EB87B4;
+    --teal: #4390A6;
+    --teal-deep: #337493;
+    --navy: #3C4758;
+    --plum: #5C3041;
+    --butter: #EFBD77;
+
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --sans: 'Familjen Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --border: 1px solid var(--ink);
+    --border-thick: 2px solid var(--ink);
+    --shadow: 6px 6px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    overflow-x: hidden;
+    /* subtle grain */
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(228, 76, 141, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(67, 144, 166, 0.05) 0%, transparent 50%);
+  }
+
+  ::selection { background: var(--ink); color: var(--peach); }
+
+  a { color: inherit; }
+
+  /* ---------- LAYOUT ---------- */
+  .wrap {
+    width: min(1180px, 92vw);
+    margin: 0 auto;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: var(--border);
+    backdrop-filter: blur(6px);
+  }
+  nav.top .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  nav.top .brand {
+    font-family: var(--display);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  nav.top .brand .dot { color: var(--pink); }
+  nav.top ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  nav.top ul a {
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    position: relative;
+    padding: 4px 0;
+  }
+  nav.top ul a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 0; height: 2px;
+    background: var(--pink);
+    transition: width 0.25s ease;
+  }
+  nav.top ul a:hover::after { width: 100%; }
+
+  /* ---------- TICKER ---------- */
+  .ticker {
+    background: var(--ink);
+    color: var(--peach);
+    border-bottom: var(--border);
+    overflow: hidden;
+    padding: 10px 0;
+  }
+  .ticker .track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: scroll 40s linear infinite;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .ticker .track span { display: inline-flex; align-items: center; gap: 40px; }
+  .ticker .star { color: var(--pink-soft); }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    padding: 60px 0 40px;
+    position: relative;
+  }
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hero .lede {
+    position: relative;
+  }
+  .hero .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero .eyebrow::before {
+    content: "";
+    width: 36px; height: 1px;
+    background: var(--ink);
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--pink);
+    font-weight: 300;
+  }
+  .hero h1 .underline {
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .underline::after {
+    content: "";
+    position: absolute;
+    left: -2%; right: -2%;
+    bottom: 4px;
+    height: 12px;
+    background: var(--peach);
+    z-index: -1;
+    transform: skew(-6deg);
+  }
+  .hero p.bio {
+    font-size: 1.1rem;
+    max-width: 46ch;
+    margin-bottom: 32px;
+  }
+  .hero .cta-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 22px;
+    border: var(--border-thick);
+    background: var(--paper);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+  .btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn.primary { background: var(--pink); color: var(--paper); }
+  .btn.alt { background: var(--teal); color: var(--paper); }
+
+  /* ---------- HERO CHARACTERS (your CSS, lightly adapted) ---------- */
+  .hero-art {
+    position: relative;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .container {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    transform: scale(0.85);
+    transform-origin: center bottom;
+  }
+
+  .head {
+    border-radius: 10px;
+    border: var(--border);
+    height: 100px;
+    position: relative;
+  }
+
+  .ear {
+    height: 50px; width: 40px;
+    border-radius: 50%;
+    border: var(--border);
+    position: absolute;
+    bottom: 15px; left: -12px;
+    z-index: -1;
+    background: #3C4758;
+    overflow: hidden;
+  }
+  .ear:after {
+    content: "";
+    height: 35px; width: 35px;
+    border-radius: 50%;
+    border: var(--border);
+    background: #4390A6;
+    position: absolute;
+  }
+  .ear.right {
+    transform: scaleX(-1);
+    left: unset; right: -12px;
+  }
+
+  /* first */
+  .first { position: relative; }
+  .first .head {
+    width: 120px;
+    background: linear-gradient(#D3CECF 30%, #8B8084);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .first .mouth {
+    height: 30px; width: 100%;
+    background: linear-gradient(#D3CECF 40%, #A79CA0);
+    border-top: var(--border);
+  }
+  .first .face {
+    display: flex;
+    justify-content: space-between;
+    margin-left: -5px; margin-right: -5px;
+    position: relative;
+  }
+  .first .eye {
+    height: 45px; width: 45px;
+    border-radius: 50%;
+    border: var(--border);
+    background: linear-gradient(#B0A7AA, white);
+    position: relative;
+    overflow: hidden;
+  }
+  .first .eye:before {
+    content: "";
+    height: 33px; width: 33px;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px; left: 6px;
+    background: #503641;
+  }
+  .first .eye:after {
+    content: "";
+    height: 22px; width: 45px;
+    border-radius: 22px 22px 0 0;
+    background: #EBAC6D;
+    position: absolute;
+    top: -2px; left: 0;
+    border: var(--border);
+    animation: close-eyes 3s infinite ease-in-out;
+  }
+  .first .nose {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2px;
+    height: 50px; width: 50px;
+    border-radius: 50%;
+    border: var(--border);
+    background: #395267;
+    overflow: hidden;
+  }
+  .first .nose:after {
+    content: "";
+    width: 55px; height: 100%;
+    border: var(--border);
+    border-radius: 50%;
+    position: absolute;
+    background: linear-gradient(#6FB0AA, #2F81A1);
+    top: -30%; left: 50%;
+    transform: translateX(-50%);
+  }
+  .first .head-gear {
+    height: 40px; width: 10px;
+    border: var(--border);
+    border-bottom: none;
+    margin: 0 auto;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: linear-gradient(#D5D0D2 20%, #6A5E60 40%, #D5D0D2);
+  }
+  .first .head-gear .button {
+    position: absolute;
+    height: 5px; width: 15px;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    background: #6A5E60;
+    border: var(--border);
+    border-radius: 5px;
+  }
+  .first .head-gear .paddles {
+    animation: rotate-fan infinite linear 1s;
+  }
+  .first .head-gear .paddle {
+    position: absolute;
+    filter: url('#goo');
+    right: 54px; top: 10px;
+  }
+  .first .head-gear .paddle:before,
+  .first .head-gear .paddle:after {
+    content: "";
+    width: 50px; height: 20px;
+    clip-path: polygon(15% 0, 100% 0, 0 100%);
+    position: absolute;
+  }
+  .first .head-gear .paddle:before { background: #7E4640; top: 5px; }
+  .first .head-gear .paddle:after { background: #EA9564; }
+  .first .head-gear .paddle.reverse {
+    right: -44px; top: 15px;
+    transform: scale(-1, -1);
+  }
+
+  /* second */
+  .second .head {
+    width: 130px;
+    background: linear-gradient(#EB87B4 40%, #E44C8D);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .second .head:before, .second .head:after {
+    content: "";
+    height: 30px; width: 45px;
+    border-radius: 15px;
+    border: var(--border);
+    position: absolute;
+    top: -15px;
+    z-index: -1;
+  }
+  .second .head:before {
+    transform: rotate(-15deg);
+    left: 0;
+    background: linear-gradient(195deg, #EB87B4, #E44C8D, #903D5E 70%);
+  }
+  .second .head:after {
+    transform: rotate(15deg);
+    right: 0;
+    background: linear-gradient(155deg, #EB87B4, #E44C8D, #903D5E 70%);
+  }
+  .second .face {
+    height: 75px; width: 100px;
+    border: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(#3E2C32, #593744, #794B5D, #8A5F6D);
+  }
+  .second .forehead {
+    position: absolute;
+    height: 7px; width: 100%;
+    border-bottom: var(--border);
+    background: #73394F;
+    z-index: 2;
+  }
+  .second .eyes {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -20px;
+    margin-top: -22px;
+    gap: 25px;
+  }
+  .second .eyes .eye {
+    height: 40px; width: 40px;
+    border-radius: 50%;
+    background: linear-gradient(#8B7D7D, white);
+    border: var(--border);
+    position: relative;
+  }
+  .second .eyes .eye:before, .second .eyes .eye:after {
+    content: "";
+    height: 28px; width: 25px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    background: linear-gradient(#433243, #594C70);
+  }
+  .second .eyes .eye:before { left: 10px; }
+  .second .eyes .eye:after { right: 10px; }
+  .second .brows {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    height: 40px;
+    margin-top: -10px;
+    z-index: 1;
+  }
+  .second .brows:before, .second .brows:after {
+    content: "";
+    height: 40px; width: 50px;
+    border-radius: 15px;
+    border: var(--border);
+    background: linear-gradient(#4B313E, #6E4154, #8A5A6D, #956E7B);
+    animation: raise-eyebrows 3s infinite;
+  }
+  .second .brows:before { transform: rotate(-5deg); }
+  .second .brows:after { transform: rotate(5deg); }
+  .second .mouth {
+    height: 40px; width: 60px;
+    border: var(--border);
+    border-bottom: none;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: linear-gradient(#C0AFB4, #977080);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .second .lips {
+    height: 7px; width: 40px;
+    border-radius: 50%;
+    border-bottom: var(--border);
+    position: relative;
+    margin-top: 10px;
+  }
+  .second .lips:before, .second .lips:after {
+    content: "";
+    height: 5px; width: 0;
+    border-left: var(--border);
+    position: absolute;
+    transform: rotate(20deg);
+    top: 2px;
+  }
+  .second .lips:after {
+    transform: rotate(-20deg);
+    right: 0;
+  }
+  .second .nose {
+    position: absolute;
+    height: 20px; width: 30px;
+    border-radius: 50%;
+    border: var(--border);
+    background: linear-gradient(#665FB4, #635398);
+    top: 55%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    z-index: 1;
+  }
+  .second .nose:before {
+    content: "";
+    height: 20px; width: 30px;
+    border: var(--border);
+    border-radius: inherit;
+    position: absolute;
+    top: -8px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(#4F97D3, #597FBB);
+  }
+
+  /* third + fourth shared */
+  .third, .fourth { position: relative; }
+  .third .head, .fourth .head {
+    width: 100px;
+    position: relative;
+  }
+  .third .head:before, .fourth .head:before {
+    content: "";
+    height: 70px; width: 70px;
+    border-radius: 10px;
+    border: var(--border);
+    position: absolute;
+    left: 15px; bottom: 15px;
+  }
+  .third .face, .fourth .face {
+    position: absolute;
+    top: 20px; left: 15px;
+    height: 65px; width: 70px;
+    background: linear-gradient(#D0684B, #EFBD77);
+    border-radius: 10px;
+    border: var(--border);
+    overflow: hidden;
+  }
+  .third .eyes, .fourth .eyes {
+    display: flex;
+    margin: 5px -10px 0;
+    justify-content: space-between;
+  }
+  .third .eyes .eye, .fourth .eyes .eye {
+    height: 35px; width: 35px;
+    border: var(--border);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background: linear-gradient(#B0A7AA 60%, white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .third .eyes .eye:before, .fourth .eyes .eye:before {
+    content: "";
+    height: 22px; width: 25px;
+    border-radius: 50%;
+    background: black;
+  }
+  .third .eyes .eye:after, .fourth .eyes .eye:after {
+    content: "";
+    position: absolute;
+    height: 18px; width: 35px;
+    top: 0;
+    background: linear-gradient(#EEB974, #E58553);
+    border-bottom: var(--border);
+  }
+  .third .nose, .fourth .nose {
+    height: 35px; width: 35px;
+    border-radius: 50%;
+    border: var(--border);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#AF4970, #5C3041);
+    overflow: hidden;
+    z-index: 10;
+  }
+  .third .nose:after, .fourth .nose:after {
+    content: "";
+    height: 100%; width: 100%;
+    border-radius: 50%;
+    border: var(--border);
+    position: absolute;
+    top: -8px;
+    background: linear-gradient(#ED7AA8, #C6497D);
+  }
+  .third .ear, .fourth .ear {
+    left: -15px;
+    background: #7F3854;
+  }
+  .third .ear:after, .fourth .ear:after {
+    background: linear-gradient(#E884AF, #C3447A);
+  }
+  .third .ear.right, .fourth .ear.right {
+    left: unset; right: -15px;
+  }
+  .third .head {
+    background: linear-gradient(#7BB8AD, #337493);
+  }
+  .third .head:before { background: #356178; }
+  .third .mouth {
+    margin-left: 15px;
+    margin-top: 5px;
+    transform: rotate(180deg);
+    height: 20px; width: 40px;
+    background:
+      linear-gradient(135deg, #EEBB77 35%, transparent 1%) -10px 0,
+      linear-gradient(225deg, #EEBB77 35%, transparent 1%) -10px 0,
+      linear-gradient(315deg, #E6A56B 35%, transparent 1%),
+      linear-gradient(45deg, #E6A56B 35%, transparent 1%);
+    background-size: 20px 20px;
+    background-color: black;
+  }
+  .fourth .head {
+    background: linear-gradient(#5498CE, #62569C);
+  }
+  .fourth .head:before { background: #5E4985; }
+  .fourth .mouth {
+    height: 10px; width: 50px;
+    border: var(--border);
+    border-radius: 10px;
+    margin-left: 10px;
+    background: linear-gradient(#513840, #7B4958);
+  }
+  .fourth .mouth:after {
+    content: "";
+    width: 30px;
+    margin-left: 10px;
+    margin-top: 15px;
+    border-top: var(--border);
+    display: flex;
+  }
+
+  @keyframes rotate-fan { to { transform: rotateY(360deg); } }
+  @keyframes close-eyes {
+    85% { height: 22px; }
+    95% { height: 50px; }
+    100% { height: 22px; }
+  }
+  @keyframes raise-eyebrows {
+    40% { height: 40px; }
+    45% { height: 30px; }
+    50% { height: 40px; }
+    55% { height: 30px; }
+    60% { height: 40px; }
+  }
+
+  /* gentle bob on each character */
+  .container > div {
+    animation: bob 4s ease-in-out infinite;
+  }
+  .container > div:nth-child(2) { animation-delay: 0.3s; }
+  .container > div:nth-child(3) { animation-delay: 0.6s; }
+  .container > div:nth-child(4) { animation-delay: 0.9s; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section {
+    padding: 80px 0;
+    border-top: var(--border);
+    position: relative;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .section-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .section-head .num {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+
+  /* ---------- ABOUT ---------- */
+  #about .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  #about p {
+    font-size: 1.15rem;
+    margin-bottom: 1.2em;
+    max-width: 60ch;
+  }
+  #about p:first-of-type::first-letter {
+    font-family: var(--display);
+    font-size: 4.2rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin: 4px 12px 0 0;
+    color: var(--pink);
+  }
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .stat {
+    border: var(--border);
+    background: var(--paper);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .stat .k {
+    font-family: var(--display);
+    font-size: 2.2rem;
+    font-style: italic;
+    line-height: 1;
+    color: var(--pink);
+  }
+  .stat .l {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 6px;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .project {
+    border: var(--border);
+    background: var(--paper);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .project:nth-child(1) { transform: rotate(-1deg); }
+  .project:nth-child(2) { transform: rotate(1deg); }
+  .project:nth-child(3) { transform: rotate(0.5deg); }
+  .project:nth-child(4) { transform: rotate(-0.8deg); }
+  .project:hover {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--ink);
+  }
+  .project .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border: var(--border);
+    margin-bottom: 18px;
+  }
+  .project:nth-child(1) .tag { background: var(--peach); }
+  .project:nth-child(2) .tag { background: var(--pink-soft); }
+  .project:nth-child(3) .tag { background: var(--teal); color: var(--paper); border-color: var(--paper); outline: 1px solid var(--ink); }
+  .project:nth-child(4) .tag { background: var(--butter); }
+  .project h3 {
+    font-family: var(--display);
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .project p {
+    font-size: 0.96rem;
+    margin-bottom: 18px;
+    opacity: 0.85;
+  }
+  .project .arrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .project .arrow span { transition: transform 0.2s ease; display: inline-block; }
+  .project:hover .arrow span { transform: translateX(4px); }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline {
+    border-left: var(--border-thick);
+    padding-left: 28px;
+    margin-left: 8px;
+  }
+  .role {
+    position: relative;
+    padding-bottom: 36px;
+  }
+  .role::before {
+    content: "";
+    position: absolute;
+    left: -36px; top: 6px;
+    width: 14px; height: 14px;
+    background: var(--pink);
+    border: var(--border);
+    border-radius: 50%;
+  }
+  .role:last-child { padding-bottom: 0; }
+  .role .when {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .role h3 {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .role .org {
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+  .role p { max-width: 60ch; }
+
+  .skills {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill {
+    padding: 6px 14px;
+    border: var(--border);
+    border-radius: 999px;
+    background: var(--paper);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+
+  /* ---------- BLOG ---------- */
+  .posts {
+    display: grid;
+    gap: 0;
+  }
+  .post {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: padding 0.2s ease, background 0.2s ease;
+  }
+  .post:first-child { border-top: var(--border); }
+  .post:hover {
+    padding-left: 16px;
+    background: var(--paper);
+  }
+  .post .date {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+  .post h3 {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .post .read {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  /* ---------- CONTACT ---------- */
+  #contact { background: var(--ink); color: var(--paper); }
+  #contact .section-head h2 { color: var(--paper); }
+  #contact .section-head .num { color: var(--paper); opacity: 0.5; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .contact-grid h3 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    color: var(--peach);
+  }
+  .contact-grid p { margin-bottom: 28px; max-width: 40ch; }
+
+  .socials {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .socials a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 248, 240, 0.2);
+    text-decoration: none;
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 1.4rem;
+    transition: color 0.2s ease, padding 0.2s ease;
+  }
+  .socials a:hover { color: var(--pink-soft); padding-left: 12px; }
+  .socials a .arr {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    transform: rotate(-45deg);
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .socials a:hover .arr { transform: rotate(0deg); }
+
+  /* simple form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  form label {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+    margin-bottom: 6px;
+    display: block;
+  }
+  form input, form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 248, 240, 0.3);
+    padding: 10px 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--paper);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  form input:focus, form textarea:focus { border-bottom-color: var(--peach); }
+  form textarea { resize: vertical; min-height: 80px; }
+  form button {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 14px 22px;
+    border: 2px solid var(--paper);
+    background: transparent;
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  form button:hover { background: var(--peach); color: var(--ink); border-color: var(--peach); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 0;
+    border-top: 1px solid rgba(255, 248, 240, 0.2);
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px) {
+    nav.top ul { gap: 18px; }
+    nav.top ul a { font-size: 0.72rem; }
+    .hero .wrap { grid-template-columns: 1fr; }
+    .hero-art { order: -1; height: 280px; }
+    #about .grid { grid-template-columns: 1fr; gap: 32px; }
+    .projects { grid-template-columns: 1fr; }
+    .post { grid-template-columns: 90px 1fr; }
+    .post .read { display: none; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .container { transform: scale(0.7); gap: 18px; }
+  }
+  @media (max-width: 520px) {
+    nav.top ul li:nth-child(3),
+    nav.top ul li:nth-child(4) { display: none; }
+    section { padding: 56px 0; }
+    .container { transform: scale(0.6); gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">nesma<span class="dot">.</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">CV</a></li>
+      <li><a href="#blog">Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="track">
+    <span>★ Currently building things ★ Open to collaborations ★ Based on the internet ★ Available for freelance ★ Last updated 2026 ★ Drop me a line ★ Currently building things ★ Open to collaborations ★ Based on the internet ★ Available for freelance ★ Last updated 2026 ★ Drop me a line ★</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="lede">
+      <div class="eyebrow">Personal site / est. 2026</div>
+      <h1>
+        Hi, I'm <em>nesma</em> —<br />
+        I make <span class="underline">curious</span><br />
+        things on the web.
+      </h1>
+      <p class="bio">
+        Designer, builder, and occasional writer. I work at the intersection of code and craft, making interfaces that feel a little more alive than they have to.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#work">See the work →</a>
+        <a class="btn alt" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="container">
+        <div class="first">
+          <div class="head-gear">
+            <div class="paddles">
+              <div class="paddle"></div>
+              <div class="paddle reverse"></div>
+            </div>
+            <div class="button"></div>
+          </div>
+          <div class="head">
+            <div class="face">
+              <div class="eye"></div>
+              <div class="eye"></div>
+              <div class="nose"></div>
+            </div>
+            <div class="mouth"></div>
+          </div>
+          <div class="ear"></div>
+          <div class="ear right"></div>
+        </div>
+        <div class="second">
+          <div class="head">
+            <div class="face">
+              <div class="forehead"></div>
+              <div class="brows"></div>
+              <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="mouth"><div class="lips"></div></div>
+              <div class="nose"></div>
+            </div>
+          </div>
+        </div>
+        <div class="third">
+          <div class="head">
+            <div class="face">
+              <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="nose"></div>
+              <div class="mouth"></div>
+            </div>
+          </div>
+          <div class="ear"></div>
+          <div class="ear right"></div>
+        </div>
+        <div class="fourth">
+          <div class="head">
+            <div class="face">
+              <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="nose"></div>
+              <div class="mouth"></div>
+            </div>
+          </div>
+          <div class="ear"></div>
+          <div class="ear right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <div class="num">01 / About</div>
+    </div>
+    <div class="grid">
+      <div>
+        <p>I'm a multidisciplinary maker who got into the web because it was the closest thing to magic I could find. Years later, I'm still chasing that same feeling — only now I get to share it with other people.</p>
+        <p>My work spans interactive design, frontend engineering, and the occasional research detour. I care about details that nobody asked for, typography that earns its keep, and interfaces that don't take themselves too seriously.</p>
+        <p>When I'm not at a keyboard, you'll find me sketching, reading dense books I don't fully understand, and pretending I'll learn to play the synth this year.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="k">5+</div>
+          <div class="l">Years building</div>
+        </div>
+        <div class="stat">
+          <div class="k">∞</div>
+          <div class="l">Tabs open right now</div>
+        </div>
+        <div class="stat">
+          <div class="k">12</div>
+          <div class="l">Side projects shipped</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / PROJECTS -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <div class="num">02 / Projects</div>
+    </div>
+    <div class="projects">
+      <a class="project" href="#">
+        <span class="tag">Web app</span>
+        <h3>Project one</h3>
+        <p>A short, punchy description of what this project is and why it mattered. Mention the stack, the outcome, and any clever bits.</p>
+        <span class="arrow">View case study <span>→</span></span>
+      </a>
+      <a class="project" href="#">
+        <span class="tag">Interactive</span>
+        <h3>Project two</h3>
+        <p>Another project — maybe an interactive piece, a tool, or an experiment. Keep it tight and let curiosity do the rest.</p>
+        <span class="arrow">View case study <span>→</span></span>
+      </a>
+      <a class="project" href="#">
+        <span class="tag">Research</span>
+        <h3>Project three</h3>
+        <p>A research project, paper, or open-source contribution. Add context, a link, and what someone clicking through will find.</p>
+        <span class="arrow">View case study <span>→</span></span>
+      </a>
+      <a class="project" href="#">
+        <span class="tag">Side quest</span>
+        <h3>Project four</h3>
+        <p>The fun one — a weekend build, a generative experiment, or something you made just to see if you could. Show personality here.</p>
+        <span class="arrow">View case study <span>→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / CV -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Curriculum vitae</h2>
+      <div class="num">03 / Experience</div>
+    </div>
+    <div class="timeline">
+      <div class="role">
+        <div class="when">2024 — Present</div>
+        <h3>Your current role</h3>
+        <div class="org">Company / Institution</div>
+        <p>One or two lines about what you do here, what you've shipped, and the kind of problems you spend your days on.</p>
+      </div>
+      <div class="role">
+        <div class="when">2022 — 2024</div>
+        <h3>Previous role</h3>
+        <div class="org">Earlier company</div>
+        <p>What you built, who you worked with, and what you learned. Specifics beat adjectives.</p>
+      </div>
+      <div class="role">
+        <div class="when">2018 — 2022</div>
+        <h3>Education / first chapter</h3>
+        <div class="org">University or first job</div>
+        <p>Where it started — degree, focus, or the role that taught you the basics.</p>
+      </div>
+    </div>
+
+    <div class="skills">
+      <div class="skill">JavaScript</div>
+      <div class="skill">TypeScript</div>
+      <div class="skill">React</div>
+      <div class="skill">CSS / animation</div>
+      <div class="skill">Node</div>
+      <div class="skill">Python</div>
+      <div class="skill">Figma</div>
+      <div class="skill">Design systems</div>
+      <div class="skill">Research</div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Writing</h2>
+      <div class="num">04 / Notes</div>
+    </div>
+    <div class="posts">
+      <a class="post" href="#">
+        <div class="date">May 2026</div>
+        <h3>Why I rebuilt my personal site (again)</h3>
+        <div class="read">Read →</div>
+      </a>
+      <a class="post" href="#">
+        <div class="date">Mar 2026</div>
+        <h3>Notes on making interfaces feel alive</h3>
+        <div class="read">Read →</div>
+      </a>
+      <a class="post" href="#">
+        <div class="date">Jan 2026</div>
+        <h3>The case for weird CSS</h3>
+        <div class="read">Read →</div>
+      </a>
+      <a class="post" href="#">
+        <div class="date">Nov 2025</div>
+        <h3>Tools I keep coming back to</h3>
+        <div class="read">Read →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Say hello</h2>
+      <div class="num">05 / Contact</div>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <h3>Got an idea, a question, or a job that needs doing?</h3>
+        <p>I'm always up for a good conversation. Drop me a note — I read everything and reply to most of it.</p>
+        <div class="socials">
+          <a href="mailto:hello@example.com">Email <span class="arr">↗</span></a>
+          <a href="https://github.com/itsnesma" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+          <a href="#" target="_blank" rel="noopener">Twitter / X <span class="arr">↗</span></a>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); window.location='mailto:hello@example.com?subject='+encodeURIComponent('From your site — '+(this.name.value||'a friend'))+'&body='+encodeURIComponent(this.message.value);">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@somewhere.com" />
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
+        </div>
+        <button type="submit">Send →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>© 2026 nesma — built with too many tabs</div>
+    <div>★ itsnesma.github.io ★</div>
+  </div>
+</footer>
+
+<!-- SVG goo filter for the spinning fan blades -->
+<svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+    </filter>
+  </defs>
+</svg>
+
+</body>
+</html>
