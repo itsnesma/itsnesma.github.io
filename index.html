@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="nesma">
 <meta property="og:url" content="https://itsnesma.github.io/">
 <meta property="og:title" content="Nesma — Genomes, Adventure, and Learning">
-<meta property="og:description" content="Microbial ecologist and PhD candidate in antimicrobial resistance at UAE University. Genomes, adventure and education.">
+<meta property="og:description" content="Microbial ecologist and PhD candidate in antimicrobial resistance at UAE University. Genomes, adventure and learning.">
 <meta property="og:image" content="https://itsnesma.github.io/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The name nesma spelled in DNA letters, with the subtitle Genomes, Adventure, and Education.">
+<meta property="og:image:alt" content="The name nesma spelled in DNA letters, with the subtitle Genomes, Adventure, and Learning.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nesma — Genomes, Adventure, and Learning">
-<meta name="twitter:description" content="Microbial ecologist and PhD candidate in antimicrobial resistance at UAE University. Genomes, adventure and education.">
+<meta name="twitter:description" content="Microbial ecologist and PhD candidate in antimicrobial resistance at UAE University. Genomes, adventure and learning.">
 <meta name="twitter:image" content="https://itsnesma.github.io/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -242,7 +242,7 @@
 <div class="stage">
   <h1 style="margin:0"><button class="name-box" type="button" aria-label="Nesma — replay the DNA assembly"></button></h1>
   <!-- Edit your subtitle here -->
-  <p class="subtitle" data-asm>Genomes, Adventure, and Education</p>
+  <p class="subtitle" data-asm>Genomes, Adventure, and Learning</p>
 </div>
 
 <main>
@@ -348,7 +348,7 @@ const Tabs = (() => {
     pages.forEach(p => p.hidden = p.dataset.tab !== id);
     tabs.forEach(t => t.classList.toggle('on', t.dataset.tab === id && id !== ''));
     document.body.classList.toggle('home', !id);
-    document.title = id ? `${page.dataset.title} — nesma` : 'Nesma Lydia Ait Belkacem — Genomes, Adventure, and Education';
+    document.title = id ? `${page.dataset.title} — nesma` : 'Nesma — Genomes, Adventure, and Learning';
     if (page) { page.scrollTop = 0; init(page); }
     listeners.forEach(f => f(id));
   }
