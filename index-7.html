@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>nesma</title>
+<meta name="description" content="Nesma Lydia Ait Belkacem: PhD candidate in microbial ecology and antimicrobial resistance at UAE University, builder of AmpliLearn and MetaLearn, overlander and writer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060914; --ink:#e9edff; --muted:#8a93b8; --dim:#4b5378; --line:rgba(233,237,255,.09);
+    --a:#ff5d8f; --t:#ffb84d; --g:#3fd6e0; --c:#8b7bff; --u:#6ee7a8; --cv:#9fb3ff;
+    --mono:"JetBrains Mono",ui-monospace,monospace; --serif:"Fraunces",Georgia,serif;
+    --bar:58px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+  body{background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* ================================================== STAGE (home) */
+  #dna{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+  .stage{position:fixed;inset:0;display:grid;place-items:center;z-index:1;pointer-events:none}
+  .name-box{width:min(88vw,64rem);height:clamp(90px,20vw,260px);pointer-events:auto;cursor:pointer;background:none;border:0}
+  body:not(.home) .name-box{pointer-events:none}
+
+  /* ================================================== TABS */
+  .tabs{position:fixed;left:0;right:0;top:0;z-index:20;height:var(--bar);display:flex;justify-content:center;align-items:center;
+    gap:clamp(.2rem,1.4vw,1rem);padding:0 1rem;overflow-x:auto;scrollbar-width:none;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+  .tabs::-webkit-scrollbar{display:none}
+  body:not(.home) .tabs{background:rgba(6,9,20,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+  .tab{position:relative;flex:none;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;text-decoration:none;color:var(--muted);
+    padding:.5rem .75rem;border-radius:8px;transition:color .25s,background .25s}
+  .tab:hover{color:var(--ink);background:rgba(255,255,255,.04)}
+  .tab::after{content:"";position:absolute;left:.75rem;right:.75rem;bottom:.1rem;height:2px;border-radius:2px;background:var(--k);transform:scaleX(0);transition:transform .3s}
+  .tab.on{color:var(--ink)}
+  .tab.on::after{transform:scaleX(1);box-shadow:0 0 10px var(--k)}
+  .home-tab{color:var(--g)}
+  body.home .home-tab{opacity:0;pointer-events:none;width:0;padding:0;overflow:hidden}
+
+  /* hidden until the name is assembled */
+  [data-asm] .ch{transition:opacity .45s ease}
+  body:not(.assembled) [data-asm] .ch{opacity:0}
+  body:not(.assembled) .tab-page{display:none}
+
+  /* ================================================== TAB PAGES */
+  .tab-page{position:fixed;left:0;right:0;top:var(--bar);bottom:0;z-index:10;overflow-y:auto;overscroll-behavior:contain;
+    background:linear-gradient(180deg,rgba(6,9,20,.86),rgba(6,9,20,.95));animation:pageIn .45s cubic-bezier(.2,.8,.2,1);
+    scrollbar-width:thin;scrollbar-color:rgba(233,237,255,.15) transparent}
+  .tab-page[hidden]{display:none}
+  @keyframes pageIn{from{opacity:0;transform:translateY(18px)}}
+  .tab-inner{max-width:68rem;margin:0 auto;padding:clamp(2.2rem,6vh,4rem) clamp(1.2rem,5vw,3rem) 5rem;container-type:inline-size}
+  .tab-inner h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;letter-spacing:-.035em;line-height:1.02}
+  .tab-inner h2::after{content:"";display:block;width:3.2rem;height:3px;border-radius:2px;background:var(--k);margin-top:1rem;box-shadow:0 0 12px var(--k)}
+  .tab-inner .lede{color:#b9c0e0;margin:1.2rem 0 2.2rem;max-width:42rem;font-size:1.05rem;line-height:1.7}
+
+/* ---- shared content pieces */
+  .btn{display:inline-block;font:500 .9rem "Space Grotesk",sans-serif;text-decoration:none;color:var(--ink);cursor:pointer;padding:.7rem 1.2rem;border-radius:999px;border:1px solid rgba(233,237,255,.2);background:rgba(255,255,255,.03);transition:transform .2s,border-color .2s,background .2s}
+  .btn:hover{transform:translateY(-2px);border-color:rgba(233,237,255,.5)}
+  .btn.primary{border-color:rgba(63,214,224,.65);background:rgba(63,214,224,.10);box-shadow:0 0 26px -8px rgba(63,214,224,.5)}
+  .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,14.5rem),1fr))}
+  .card{display:flex;flex-direction:column;gap:.6rem;padding:1.2rem;border-radius:14px;text-decoration:none;background:rgba(255,255,255,.025);border:1px solid var(--line);transition:transform .25s,border-color .25s}
+  a.card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--k) 55%,transparent)}
+  .card .kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--k)}
+  .card h3{font-size:1.1rem;font-weight:500;line-height:1.25}
+  .card p{color:var(--muted);font-size:.9rem;line-height:1.55}
+  .card .more{margin-top:auto;font-family:var(--mono);font-size:.72rem;opacity:.8}
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem}
+  .tags span{font-family:var(--mono);font-size:.62rem;padding:.2rem .5rem;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .status{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.65rem;color:var(--muted)}
+  .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sc);box-shadow:0 0 8px var(--sc)}
+  .gene{display:block;width:100%;height:20px}
+  .tool-ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:.85rem;background:color-mix(in srgb,var(--k) 14%,transparent);color:var(--k);border:1px solid color-mix(in srgb,var(--k) 40%,transparent)}
+  .banner{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.2rem;padding:1rem 1.2rem;border-radius:14px;border:1px dashed color-mix(in srgb,var(--k) 45%,transparent)}
+  .banner p{color:var(--muted);font-size:.92rem;max-width:30rem}
+  .note{font-family:var(--mono);font-size:.66rem;color:var(--dim);margin-top:1.2rem}
+  .sub-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--k);margin:0 0 .8rem}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  @container (max-width:600px){.two-col{grid-template-columns:1fr}}
+
+  /* travels route */
+  .route{position:relative;padding:2.2rem 0 2.6rem;margin-bottom:1rem;overflow-x:auto}
+  .route-inner{position:relative;min-width:560px;height:66px}
+  .route-line{position:absolute;left:0;right:0;top:32px;height:2px;background:repeating-linear-gradient(90deg,var(--k) 0 8px,transparent 8px 14px);opacity:.55}
+  .route-progress{position:absolute;left:0;top:31px;height:4px;width:0;background:var(--k);border-radius:2px;box-shadow:0 0 14px var(--k);transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+  .route.in .route-progress{width:var(--done)}
+  .stop{position:absolute;top:0;transform:translateX(-50%);text-align:center;width:100px}
+  .stop i{display:block;margin:24px auto 0;width:16px;height:16px;border-radius:5px;background:var(--bg);border:2px solid var(--k)}
+  .stop.done i{background:var(--k);box-shadow:0 0 12px var(--k)}
+  .stop.next i{animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--k) 22%,transparent)}}
+  .stop .l{position:absolute;left:0;right:0;font-family:var(--mono);font-size:.64rem;color:var(--muted)}
+  .stop .l.top{top:-6px}.stop .l.bot{top:50px;color:var(--ink)}
+
+  /* book */
+  .book{display:grid;grid-template-columns:minmax(170px,230px) 1fr;gap:2rem;align-items:center}
+  @container (max-width:560px){.book{grid-template-columns:1fr}.cover{max-width:200px}}
+  .cover{position:relative;aspect-ratio:2/3;border-radius:5px 12px 12px 5px;overflow:hidden;background:linear-gradient(160deg,#1b1440,#0b2a3a 55%,#0a1220);
+    box-shadow:-8px 0 0 -4px rgba(0,0,0,.4) inset,0 30px 60px -25px rgba(139,123,255,.6),0 0 0 1px rgba(255,255,255,.08);
+    display:flex;flex-direction:column;justify-content:space-between;padding:1.2rem 1.1rem;transform:perspective(1000px) rotateY(-12deg);transition:transform .5s}
+  .cover:hover{transform:perspective(1000px) rotateY(-3deg)}
+  .cover svg{position:absolute;inset:0;width:100%;height:100%}
+  .cover .ct{position:relative;font-family:var(--serif);font-size:1.6rem;line-height:1.05;color:#fff}
+  .cover .ct em{display:block;font-style:italic;font-size:.55em;color:var(--t);margin-top:.4rem}
+  .cover .ca{position:relative;font-family:var(--mono);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:#cfd5f5}
+  .book h3{font-family:var(--serif);font-weight:500;font-size:1.9rem;line-height:1.1}
+  .book p{color:#b9c0e0;line-height:1.65;margin-top:.8rem;font-size:.95rem}
+  .pull{font-family:var(--serif);font-style:italic;color:var(--ink)!important;border-left:2px solid var(--k);padding-left:.9rem}
+  .countdown{display:flex;gap:1.3rem;margin-top:1.2rem;font-family:var(--mono)}
+  .countdown b{display:block;font-size:1.6rem;font-weight:500;color:var(--k)}
+  .countdown span{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .inline-form{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.3rem}
+  .inline-form input{flex:1;min-width:12rem}
+
+  /* writing lists */
+  .list a{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:1rem 0;text-decoration:none;border-top:1px solid var(--line);transition:padding-left .2s}
+  .list a:last-child{border-bottom:1px solid var(--line)}
+  .list a:hover{padding-left:.4rem}
+  .list .d{grid-column:1/-1;font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+  .list h3{font-size:1.05rem;font-weight:500}
+  .list h3.serif{font-family:var(--serif)}
+  .list p{color:var(--muted);font-size:.86rem;margin-top:.15rem}
+  .list .arrow{font-family:var(--mono);color:var(--k);align-self:center}
+
+  /* cv */
+  .timeline{position:relative;padding-left:1.5rem}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--k),transparent)}
+  .tl{position:relative;padding-bottom:1.3rem}
+  .tl::before{content:"";position:absolute;left:-1.5rem;top:.4rem;width:12px;height:12px;border-radius:3px;background:var(--bg);border:2px solid var(--k)}
+  .tl .d{font-family:var(--mono);font-size:.68rem;color:var(--k)}
+  .tl h4{font-size:1.02rem;font-weight:500}
+  .tl p{color:var(--muted);font-size:.88rem}
+  .heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.5rem,1fr));gap:4px}
+  .heat span{font-family:var(--mono);font-size:.68rem;padding:.55rem .6rem;border-radius:4px;color:#05070f;font-weight:500;background:color-mix(in srgb,var(--k) calc(var(--v)*100%),#1a2140)}
+  .heat span.lo{color:var(--ink)}
+
+  /* forms */
+  label{display:grid;gap:.35rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{font:400 .95rem "Space Grotesk",sans-serif;color:var(--ink);background:rgba(6,9,20,.75);border:1px solid rgba(233,237,255,.14);border-radius:10px;padding:.7rem .85rem;outline:none;width:100%;transition:border-color .2s}
+  input:focus,select:focus,textarea:focus{border-color:var(--k)}
+  textarea{min-height:100px;resize:vertical}
+  form.intro{display:grid;gap:.9rem}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  @container (max-width:480px){.row2{grid-template-columns:1fr}}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem}
+  .chips input{position:absolute;opacity:0;width:auto;pointer-events:none}
+  .chips label{display:inline-block;text-transform:none;letter-spacing:.02em;font-size:.74rem;padding:.4rem .75rem;border-radius:999px;border:1px solid rgba(233,237,255,.16);cursor:pointer;transition:all .2s}
+  .chips input:checked+label{color:#05070f;background:var(--k);border-color:var(--k)}
+  .chips input:focus-visible+label{outline:2px solid var(--k);outline-offset:2px}
+  .form-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .form-foot small{font-family:var(--mono);font-size:.66rem;color:var(--dim)}
+
+  /* terminal */
+  .term{font-family:var(--mono);font-size:.84rem;line-height:1.6;padding:1rem 1.1rem 1.4rem!important;cursor:text;background:rgba(3,5,12,.6)}
+  .term .ln{white-space:pre-wrap;word-break:break-word}
+  .term .p{color:var(--u)} .term .pp{color:var(--g)} .term .err{color:var(--a)} .term .dim{color:var(--muted)}
+  .term .row{display:flex;gap:.6ch}
+  .term input{flex:1;background:none;border:0;padding:0;border-radius:0;font:inherit;color:var(--ink);caret-color:var(--g)}
+  .term .A{color:var(--a)}.term .T{color:var(--t)}.term .G{color:var(--g)}.term .C{color:var(--c)}
+  .term a{color:var(--g)}
+
+  
+
+  /* a little roomier than in windows */
+  .grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:1.2rem}
+  .card{padding:1.4rem}
+  @container (min-width:561px){.book{grid-template-columns:minmax(200px,280px) 1fr;gap:3rem}.book h3{font-size:2.4rem}}
+
+  /* ---- under development: "still being sequenced" */
+  .ud{max-width:52rem}
+  .ud-head{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:1.1rem;letter-spacing:.02em}
+  .ud-head b{color:var(--k);font-weight:500}
+  .ud-state{color:var(--k)}
+  .ud-reads{font-family:var(--mono);font-size:clamp(.72rem,1.6vw,.95rem);line-height:1.75;letter-spacing:.14em;white-space:pre;overflow:hidden;
+    padding:1.1rem 1.2rem;border-radius:14px;border:1px solid var(--line);background:rgba(3,5,12,.55);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+  .ud-reads .N{color:#39405e}
+  .ud-reads .A{color:var(--a)} .ud-reads .T{color:var(--t)} .ud-reads .G{color:var(--g)} .ud-reads .C{color:var(--c)}
+  .ud-reads .new{color:#fff;text-shadow:0 0 8px #fff}
+  .ud-reads .hdr{color:#6b74a0}
+  .ud-meter{display:flex;align-items:center;gap:1rem;margin-top:1rem;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .ud-bar{flex:1;height:6px;border-radius:3px;background:rgba(233,237,255,.08);overflow:hidden}
+  .ud-bar i{display:block;height:100%;width:0;background:var(--k);box-shadow:0 0 12px var(--k);border-radius:3px;transition:width .3s linear}
+  .ud-call{white-space:nowrap}
+  .ud-note{margin-top:1.4rem;font-size:.86rem;color:var(--dim)}
+  .ud-note code{font-family:var(--mono);color:var(--muted)}
+  .ud-links{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+  @media (max-width:720px){.ud-meter{flex-wrap:wrap}.ud-call{width:100%}}
+
+  .cv-bar{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;max-width:42rem;margin:0 auto 2rem;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .cv-bar a{color:var(--k);text-decoration:none}
+  .cv-bar a:hover{text-decoration:underline}
+  .cv-frame{display:block;width:100%;height:80vh;border:0;background:transparent;color-scheme:dark}
+  @media (max-width:720px){
+    :root{--bar:86px}
+    .tabs{flex-wrap:wrap;align-content:center;gap:.1rem .2rem;padding:.4rem .6rem;overflow:visible}
+    .tab{font-size:.76rem;padding:.45rem .6rem}
+    .name-box{width:92vw}
+  }
+  @media (prefers-reduced-motion:reduce){.tab-page{animation:none}.route-progress{transition:none}}
+</style>
+</head>
+<body class="home">
+
+<canvas id="dna" aria-hidden="true"></canvas>
+
+<nav class="tabs" aria-label="Sections">
+    <a class="tab home-tab" href="#" data-tab="" style="--k:var(--g)">← nesma</a>
+    <a class="tab" href="#research" data-tab="research" style="--k:var(--g)" data-asm>research</a>
+    <a class="tab" href="#learn" data-tab="learn" style="--k:var(--u)" data-asm>learn</a>
+    <a class="tab" href="#travels" data-tab="travels" style="--k:var(--t)" data-asm>travels</a>
+    <a class="tab" href="#book" data-tab="book" style="--k:var(--c)" data-asm>book</a>
+    <a class="tab" href="#writing" data-tab="writing" style="--k:var(--a)" data-asm>writing</a>
+    <a class="tab" href="#cv" data-tab="cv" style="--k:var(--cv)" data-asm>cv</a>
+    <a class="tab" href="#hello" data-tab="hello" style="--k:#ffffff" data-asm>collaborate</a>
+</nav>
+
+<div class="stage">
+  <h1 style="margin:0"><button class="name-box" type="button" aria-label="Nesma — replay the DNA assembly"></button></h1>
+</div>
+
+<main>
+<section class="tab-page" id="tab-research" data-tab="research" data-title="Research" style="--k:var(--g)" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.62">
+    <div class="ud-head">&gt;<b>chr1</b>:research | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>Research</h2>
+    <p class="lede">This region is still being sequenced. Antimicrobial resistance in arid soils, boreal forest fungi, and more.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+<section class="tab-page" id="tab-learn" data-tab="learn" data-title="Learn" style="--k:var(--u)" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.78">
+    <div class="ud-head">&gt;<b>chr2</b>:learn | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>Learn</h2>
+    <p class="lede">This region is still being sequenced. AmpliLearn, MetaLearn and other hands-on bioinformatics tools.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+<section class="tab-page" id="tab-travels" data-tab="travels" data-title="Travels" style="--k:var(--t)" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.41">
+    <div class="ud-head">&gt;<b>chr3</b>:travels | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>Travels</h2>
+    <p class="lede">This region is still being sequenced. Field notes from overlanding, hiking and camping across the UAE.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+<section class="tab-page" id="tab-book" data-tab="book" data-title="The book" style="--k:var(--c)" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.55">
+    <div class="ud-head">&gt;<b>chr4</b>:book | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>The book</h2>
+    <p class="lede">This region is still being sequenced. A book on overlanding in the UAE, currently being edited.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+<section class="tab-page" id="tab-writing" data-tab="writing" data-title="Writing" style="--k:var(--a)" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.33">
+    <div class="ud-head">&gt;<b>chr5</b>:writing | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>Writing</h2>
+    <p class="lede">This region is still being sequenced. Opinion pieces and notes from the bench.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+<section class="tab-page" id="tab-cv" data-tab="cv" data-title="CV" style="--k:var(--cv)" hidden>
+<div class="tab-inner">
+  <div class="cv-bar"><span>curriculum vitae</span><span><a href="cv.html" target="_blank" rel="noopener">open full page ↗</a> · <a href="cv.html?print" target="_blank" rel="noopener">print / PDF</a></span></div>
+  <iframe class="cv-frame" src="cv.html?embed" title="Nesma's CV" scrolling="no"></iframe></div>
+</section>
+<section class="tab-page" id="tab-hello" data-tab="hello" data-title="Collaborate" style="--k:#ffffff" hidden>
+<div class="tab-inner">
+  <div class="ud" data-cov="0.7">
+    <div class="ud-head">&gt;<b>chrX</b>:collaborate | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+    <h2>Collaborate</h2>
+    <p class="lede">This region is still being sequenced. A proper way to introduce yourself is on its way.</p>
+    <div class="ud-reads" aria-hidden="true"></div>
+    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
+    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
+    <div class="ud-links"><a class="btn primary" href="#cv">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
+  </div></div>
+</section>
+</main>
+
+<script>
+/* ---------------------------------------------------- edit me */
+const SITE = {
+  email: '700049478@uaeu.ac.ae',
+  repo: 'itsnesma/itsnesma.github.io',
+  bookLaunch: '2027-03-01'
+};
+
+/* ---------------------------------------------------- tab pages */
+const Tabs = (() => {
+  const pages = [...document.querySelectorAll('.tab-page')];
+  const tabs = [...document.querySelectorAll('.tab')];
+  const inited = new Set();
+  const listeners = [];
+  let current = '';
+
+  function show(id) {
+    const page = pages.find(p => p.dataset.tab === id);
+    if (!page) id = '';
+    current = id;
+    pages.forEach(p => p.hidden = p.dataset.tab !== id);
+    tabs.forEach(t => t.classList.toggle('on', t.dataset.tab === id && id !== ''));
+    document.body.classList.toggle('home', !id);
+    document.title = id ? `${page.dataset.title} — nesma` : 'nesma';
+    if (page) { page.scrollTop = 0; init(page); }
+    listeners.forEach(f => f(id));
+  }
+  const route = () => show(location.hash.slice(1));
+
+  /* "still being sequenced" pages: N bases get basecalled until the coverage target */
+  const udTimers = new Map();
+  function sequencing(page) {
+    const ud = page.querySelector('.ud'); if (!ud) return;
+    clearInterval(udTimers.get(ud));
+    const box = ud.querySelector('.ud-reads');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const target = +ud.dataset.cov;
+    const cols = Math.max(24, Math.floor((box.clientWidth - 40) / (parseFloat(getComputedStyle(box).fontSize) * .74)));
+    const ROWS = 7, B = 'ACGT';
+    const ref = Array.from({ length: ROWS }, () => Array.from({ length: cols }, () => B[Math.random() * 4 | 0]));
+    const called = ref.map(r => r.map(() => false));
+    // one FASTA header line + reads with staggered starts, like an alignment pile-up
+    const offs = Array.from({ length: ROWS }, () => Math.random() * cols * .25 | 0);
+    const cells = [];
+    for (let r = 0; r < ROWS; r++) for (let c = offs[r]; c < cols; c++) cells.push([r, c]);
+    const total = cells.length;
+    let done = 0, fresh = new Set();
+    const pct = ud.querySelector('.ud-pct'), bar = ud.querySelector('.ud-bar i'), nEl = ud.querySelector('.ud-n'), state = ud.querySelector('.ud-state');
+    const id = page.dataset.tab;
+    function render() {
+      let html = `<span class="hdr">&gt;${id}_draft  len=${total} bp  N=${total - done}</span>\n`;
+      for (let r = 0; r < ROWS; r++) {
+        let line = ' '.repeat(offs[r]);
+        for (let c = offs[r]; c < cols; c++) {
+          const k = r * 1000 + c;
+          line += called[r][c] ? `<span class="${fresh.has(k) ? 'new' : ref[r][c]}">${ref[r][c]}</span>` : '<span class="N">N</span>';
+        }
+        html += line + (r < ROWS - 1 ? '\n' : '');
+      }
+      box.innerHTML = html;
+      const p = done / total;
+      pct.textContent = Math.round(p * 100); bar.style.width = (p * 100) + '%'; nEl.textContent = done.toLocaleString();
+      state.textContent = p >= target - .005 ? 'paused, more reads coming soon' : 'sequencing';
+    }
+    function step(n) {
+      fresh = new Set();
+      for (let i = 0; i < n && done / total < target; i++) {
+        const [r, c] = cells[Math.random() * total | 0];
+        if (!called[r][c]) { called[r][c] = true; done++; fresh.add(r * 1000 + c); }
+      }
+      render();
+    }
+    if (reduce) { step(Math.ceil(total * target * 3)); fresh.clear(); render(); return; }
+    render();
+    const t = setInterval(() => {
+      if (page.hidden) return clearInterval(t);
+      if (done / total >= target) {           // keep it alive: occasional re-reads flash white
+        fresh = new Set(); const [r, c] = cells[Math.random() * total | 0];
+        if (called[r][c]) fresh.add(r * 1000 + c); render(); return;
+      }
+      step(Math.max(1, total / 260 | 0));
+    }, 45);
+    udTimers.set(ud, t);
+  }
+
+  function init(page) {
+    const id = page.dataset.tab;
+    sequencing(page);
+    page.querySelectorAll('.route').forEach(r => { r.classList.remove('in'); setTimeout(() => r.classList.add('in'), 300); });
+    if (inited.has(id)) return;
+    inited.add(id);
+    const k = getComputedStyle(page).getPropertyValue('--k').trim() || '#3fd6e0';
+    page.querySelectorAll('[data-gene]').forEach(svg => {
+      let x = 4, out = `<line x1="0" y1="10" x2="300" y2="10" stroke="rgba(233,237,255,.25)" stroke-width="1.5"/>`;
+      while (x < 280) { const w = 14 + Math.random() * 46; out += `<rect x="${x}" y="3" width="${Math.min(w, 296 - x)}" height="14" rx="2" fill="${k}" opacity="${.45 + Math.random() * .5}"/>`; x += w + 10 + Math.random() * 34; }
+      svg.innerHTML = out + `<path d="M292 5 L299 10 L292 15" stroke="${k}" fill="none" stroke-width="1.5"/>`;
+    });
+    page.querySelectorAll('[data-countdown]').forEach(cd => {
+      const launch = new Date(SITE.bookLaunch);
+      const tick = () => {
+        const s = Math.max(0, (launch - Date.now()) / 1000);
+        cd.querySelector('[data-u=d]').textContent = Math.floor(s / 86400);
+        cd.querySelector('[data-u=h]').textContent = Math.floor(s % 86400 / 3600);
+        cd.querySelector('[data-u=m]').textContent = Math.floor(s % 3600 / 60);
+      };
+      tick(); setInterval(tick, 30000);
+    });
+    const mail = (subject, text) => location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    page.querySelectorAll('[data-notify]').forEach(f => f.addEventListener('submit', e => {
+      e.preventDefault(); mail('Book launch: notify me', `Please let me know when the book is out.\n\nEmail: ${f.querySelector('input').value}`);
+    }));
+    page.querySelectorAll('[data-intro]').forEach(f => f.addEventListener('submit', e => {
+      e.preventDefault();
+      const d = new FormData(f);
+      mail(`Hello from ${d.get('name')} (${d.get('role')})`,
+        `Name: ${d.get('name')}\nEmail: ${d.get('email')}\nI am: ${d.get('role')}\nInterested in: ${d.getAll('interest').join(', ') || '-'}\n\n${d.get('message') || ''}`);
+    }));
+    page.querySelectorAll('[data-gh]').forEach(a => a.href =
+      `https://github.com/${SITE.repo}/issues/new?labels=introduction&title=${encodeURIComponent("Hello! I'm …")}&body=${encodeURIComponent("**Who I am:**\n\n**What I work on:**\n\n**Why I'm reaching out:**\n")}`);
+  }
+
+  addEventListener('message', e => {
+    const h = e.data && e.data.cvHeight;
+    const f = document.querySelector('.cv-frame');
+    if (h && f && e.source === f.contentWindow) f.style.height = h + 'px';
+  });
+  addEventListener('hashchange', route);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && current) location.hash = ''; });
+  return { route, onChange: f => listeners.push(f), get current() { return current; } };
+})();
+
+/* ---------------------------------------------------- DNA name */
+(async () => {
+  const NAME = 'nesma';
+  const COLORS = { A:'#ff5d8f', T:'#ffb84d', G:'#3fd6e0', C:'#8b7bff' };
+  const MONO = '"JetBrains Mono", ui-monospace, monospace';
+  const DISPLAY = '"Space Grotesk", system-ui, sans-serif';
+  const IDS = ['nesma_chr1','uae_resistome_ARGs','travel_log_7','ficus_boreal_ITS','nesma::book','opinion_0x2A','chrM','meeg_lab_tools'];
+  const DESCS = ['bioinformatics notes','unassembled thoughts','overland route v3','raw reads','draft manuscript','teaching tools','op-ed draft','field notes'];
+
+  const body = document.body;
+  const canvas = document.getElementById('dna');
+  const ctx = canvas.getContext('2d');
+  const nameBox = document.querySelector('.name-box');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const base = () => 'ATGC'[Math.random() * 4 | 0];
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const easeIO = q => q < .5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2;
+  const easeOut = q => 1 - Math.pow(1 - q, 3);
+
+  // tab labels are assembled from nucleotides too
+  const chars = [];
+  document.querySelectorAll('[data-asm]').forEach(el => {
+    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = []; while (tw.nextNode()) nodes.push(tw.currentNode);
+    for (const n of nodes) {
+      const frag = document.createDocumentFragment();
+      for (const ch of n.textContent) {
+        if (/\s/.test(ch)) frag.appendChild(document.createTextNode(ch));
+        else { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; frag.appendChild(s); chars.push(s); }
+      }
+      n.replaceWith(frag);
+    }
+  });
+
+  await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]);
+
+  let W, H, DPR, fs, cw, lh, PAD = 14, lines = [], mosaic = [], content = [];
+  let cell = 12, mode = 'intro', t0 = 0, last = 0, clock = 0, T_HAND = 6, T_IDLE = 6.5;
+  let mouse = { x: -1e4, y: -1e4 }, mutAcc = 0, running = true, raf = 0, scatter = 0, scatterTarget = 0;
+  const T_ALIGN = 1.6, T_SCAN = 2.3, T_ASM = 3.0;
+
+  function build() {
+    W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+    fs = W < 700 ? 11 : 13;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.font = `500 ${fs}px ${MONO}`;
+    cw = ctx.measureText('A').width; lh = Math.round(fs * 1.6);
+    const rows = Math.ceil(H / lh) + 1, cols = Math.ceil(W / cw) + PAD * 2;
+    lines = []; let left = 0;
+    for (let r = 0; r < rows; r++) {
+      let text, header = false;
+      if (left <= 0) {
+        header = true; left = 3 + (Math.random() * 6 | 0);
+        text = (' '.repeat(PAD) + `>${IDS[Math.random()*IDS.length|0]} ${DESCS[Math.random()*DESCS.length|0]} len=${(Math.random()*9e4+1e3)|0}`).padEnd(cols, ' ').slice(0, cols);
+      } else { text = ''; for (let c = 0; c < cols; c++) text += base(); }
+      left--;
+      const bmp = document.createElement('canvas');
+      bmp.width = Math.ceil(cols * cw * DPR); bmp.height = Math.ceil(lh * DPR);
+      const b = bmp.getContext('2d');
+      b.scale(DPR, DPR); b.font = `500 ${fs}px ${MONO}`; b.textBaseline = 'middle';
+      if (header) { b.fillStyle = '#3fd6e0'; b.fillText('>', PAD * cw, lh / 2); b.fillStyle = '#6b74a0'; b.fillText(text.slice(PAD + 1), (PAD + 1) * cw, lh / 2); }
+      else { b.globalAlpha = .78; for (let c = 0; c < cols; c++) { b.fillStyle = COLORS[text[c]]; b.fillText(text[c], c * cw, lh / 2); } }
+      lines.push({ text, header, bmp, off0: header ? 0 : Math.round(rand(-PAD + 2, PAD - 2)) * cw });
+    }
+
+    // the name, centred in its box
+    const nb = nameBox.getBoundingClientRect();
+    const bx = nb.left, by = nb.top, bw = nb.width, bh = nb.height;
+    cell = Math.max(5, Math.min(14, Math.round(bw / 88)));
+    const oc = document.createElement('canvas'); oc.width = Math.ceil(bw); oc.height = Math.ceil(bh);
+    const o = oc.getContext('2d');
+    let size = 200; o.font = `700 ${size}px ${DISPLAY}`;
+    let m = o.measureText(NAME);
+    size *= Math.min(bh * .96 / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent), bw * .99 / (m.actualBoundingBoxLeft + m.actualBoundingBoxRight));
+    o.font = `700 ${size}px ${DISPLAY}`; m = o.measureText(NAME);
+    const gw = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, gh = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+    o.fillStyle = '#fff'; o.fillText(NAME, (bw - gw) / 2 + m.actualBoundingBoxLeft, (bh - gh) / 2 + m.actualBoundingBoxAscent);
+    const data = o.getImageData(0, 0, oc.width, oc.height).data;
+    const mT = [];
+    for (let y = cell / 2; y < bh; y += cell) for (let x = cell / 2; x < bw; x += cell)
+      if (data[((y | 0) * oc.width + (x | 0)) * 4 + 3] > 128) mT.push({ x: bx + x, y: by + y });
+
+    const cT = [];
+    for (const s of chars) {
+      const sr = s.getBoundingClientRect();
+      const x = sr.left + sr.width / 2, y = sr.top + sr.height / 2;
+      if (y < 0 || y > H || x < 0 || x > W || sr.width === 0) continue;
+      const cs = getComputedStyle(s);
+      cT.push({ x, y, ch: s.textContent, col: cs.color, size: parseFloat(cs.fontSize), font: `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}` });
+    }
+
+    const src = [];
+    lines.forEach((ln, r) => {
+      if (ln.header) return;
+      const y = r * lh + lh / 2; if (y > H - 4) return;
+      for (let c = 0; c < ln.text.length; c++) { const x = (c - PAD) * cw + cw / 2; if (x > 2 && x < W - 2) src.push({ x, y, ch: ln.text[c] }); }
+    });
+    for (let i = src.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [src[i], src[j]] = [src[j], src[i]]; }
+
+    const targets = mT.map(t => ({ ...t, kind: 'm' })).concat(cT.map(t => ({ ...t, kind: 'c' })));
+    const picked = targets.map((_, i) => src[i % src.length]);
+    targets.sort((a, b) => a.x - b.x);
+    picked.sort((a, b) => (a.x + rand(-.3, .3) * W) - (b.x + rand(-.3, .3) * W));
+
+    mosaic = []; content = []; let maxEnd = 0;
+    targets.forEach((t, i) => {
+      const s = picked[i], dx = t.x - s.x, dy = t.y - s.y, d = Math.hypot(dx, dy) || 1, bend = rand(-.45, .45) * d;
+      const p = { sx: s.x, sy: s.y, tx: t.x, ty: t.y, cx: (s.x + t.x) / 2 - dy / d * bend, cy: (s.y + t.y) / 2 + dx / d * bend,
+        rx: Math.random() * W, ry: Math.random() * H, drift: rand(0, Math.PI * 2),
+        ch: s.ch, delay: rand(0, .85) + (t.kind === 'c' ? .25 : 0), dur: rand(1.1, 1.7), x: t.x, y: t.y, vx: 0, vy: 0, flash: 0 };
+      maxEnd = Math.max(maxEnd, p.delay + p.dur);
+      if (t.kind === 'm') mosaic.push(p); else content.push(Object.assign(p, { tch: t.ch, tcol: t.col, tsize: t.size, tfont: t.font }));
+    });
+    T_HAND = T_ASM + maxEnd + .05; T_IDLE = T_HAND + .5;
+  }
+
+  function drawLines(T, alphaAll) {
+    if (alphaAll <= 0) return;
+    const alignP = easeOut(clamp01((T - T_ALIGN) / .9));
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    for (let r = 0; r < lines.length; r++) {
+      const ln = lines[r], p = clamp01((T - r * .022) / .35); if (p <= 0) continue;
+      const x = -PAD * cw + ln.off0 * (1 - alignP), sw = ln.bmp.width * p;
+      ctx.globalAlpha = alphaAll; ctx.drawImage(ln.bmp, 0, 0, sw, ln.bmp.height, x, r * lh, sw / DPR, lh);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function drawScan(T) {
+    const q = (T - T_SCAN) / .8; if (q < 0 || q > 1) return;
+    const x = q * (W + 240) - 120, g = ctx.createLinearGradient(x - 120, 0, x + 120, 0);
+    g.addColorStop(0, 'rgba(63,214,224,0)'); g.addColorStop(.5, 'rgba(63,214,224,.16)'); g.addColorStop(1, 'rgba(63,214,224,0)');
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.fillStyle = g; ctx.fillRect(x - 120, 0, 240, H);
+    ctx.fillStyle = 'rgba(63,214,224,.5)'; ctx.fillRect(x, 0, 1, H);
+  }
+  const MBASE = 20;
+  const glyph = (ch, x, y, s) => { ctx.setTransform(DPR * s, 0, 0, DPR * s, DPR * x, DPR * y); ctx.fillText(ch, 0, 0); };
+
+  function drawIntro(T) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawLines(T, T < T_ASM ? 1 : 1 - clamp01((T - T_ASM) / .8)); drawScan(T);
+    if (T < T_ASM) return;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `700 ${MBASE}px ${MONO}`;
+    const mS = cell * 1.02 / MBASE, fS = fs / MBASE;
+    for (const p of mosaic) {
+      const e = easeIO(clamp01((T - T_ASM - p.delay) / p.dur)), u = 1 - e;
+      p.x = u * u * p.sx + 2 * u * e * p.cx + e * e * p.tx; p.y = u * u * p.sy + 2 * u * e * p.cy + e * e * p.ty;
+      ctx.fillStyle = COLORS[p.ch]; ctx.globalAlpha = .8 + .2 * e; glyph(p.ch, p.x, p.y, fS + (mS - fS) * e);
+    }
+    const handA = 1 - clamp01((T - T_HAND) / .45);
+    for (const p of content) {
+      const q = clamp01((T - T_ASM - p.delay) / p.dur), e = easeIO(q), u = 1 - e;
+      const x = u * u * p.sx + 2 * u * e * p.cx + e * e * p.tx, y = u * u * p.sy + 2 * u * e * p.cy + e * e * p.ty;
+      ctx.globalAlpha = handA;
+      if (q < .62) { ctx.font = `700 ${MBASE}px ${MONO}`; ctx.fillStyle = COLORS[p.ch]; glyph(p.ch, x, y, (fs + (p.tsize - fs) * e) / MBASE); }
+      else { ctx.font = p.tfont; ctx.fillStyle = p.tcol; ctx.setTransform(DPR, 0, 0, DPR, DPR * x, DPR * y); ctx.fillText(p.tch, 0, 0); }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // after assembly: the name lives on; on a tab it scatters into drifting bases behind the page
+  function drawIdle(dt, time) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);
+    scatter += (scatterTarget - scatter) * Math.min(1, dt * 3);
+    mutAcc += dt;
+    while (mutAcc > .045) { mutAcc -= .045; const p = mosaic[Math.random() * mosaic.length | 0]; if (p) { let n; do { n = base(); } while (n === p.ch); p.ch = n; p.flash = 1; } }
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `700 ${MBASE}px ${MONO}`;
+    const sc = cell * 1.02 / MBASE, RAD = Math.max(70, cell * 8), R2 = RAD * RAD;
+    const homeMode = scatterTarget === 0;
+    for (const p of mosaic) {
+      let gx = p.tx, gy = p.ty;
+      if (!homeMode) {
+        p.drift += dt * .3;
+        gx = p.rx + Math.cos(p.drift) * 18; gy = p.ry + Math.sin(p.drift * 1.3) * 14;
+      } else {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+        if (d2 < R2) { const d = Math.sqrt(d2) || 1, f = (1 - d / RAD) * 3.2; p.vx += dx / d * f; p.vy += dy / d * f; }
+      }
+      const k = homeMode ? .07 : .012;
+      p.vx += (gx - p.x) * k; p.vy += (gy - p.y) * k; p.vx *= homeMode ? .8 : .9; p.vy *= homeMode ? .8 : .9;
+      p.x += p.vx; p.y += p.vy; p.flash *= .93;
+      const wave = .72 + .28 * Math.sin(p.tx * .011 + p.ty * .005 - time * 1.7);
+      const disp = Math.min(1, Math.hypot(p.x - p.tx, p.y - p.ty) / 30);
+      const a = (1 - scatter) * Math.min(1, wave + disp * .3) + scatter * .28;
+      if (p.flash > .15 && scatter < .5) { ctx.globalAlpha = p.flash * .9 * (1 - scatter); ctx.fillStyle = '#fff'; glyph(p.ch, p.x, p.y, sc * (1 + p.flash * .35)); }
+      ctx.globalAlpha = a; ctx.fillStyle = COLORS[p.ch];
+      glyph(p.ch, p.x, p.y, sc * (1 + (homeMode ? disp * .25 : 0)));
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function finish() {
+    mode = 'idle';
+    for (const p of mosaic) { p.x = p.tx; p.y = p.ty; p.vx = p.vy = 0; }
+    body.classList.add('assembled');
+    Tabs.route();
+    if (reduce) drawIdle(0, 0);
+  }
+  function start() {
+    body.classList.remove('assembled'); build();
+    if (reduce) { finish(); return; }
+    mode = 'intro'; t0 = performance.now();
+  }
+  function frame(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now; clock += dt;
+    if (mode === 'intro') {
+      const T = (now - t0) / 1000;
+      if (T >= T_HAND && !body.classList.contains('assembled')) { body.classList.add('assembled'); }
+      if (T >= T_IDLE) finish(); else drawIntro(T);
+    }
+    if (mode === 'idle') drawIdle(dt, clock);
+    if (running) raf = requestAnimationFrame(frame);
+  }
+  function setRunning(on) {
+    if (reduce || on === running) return;
+    running = on;
+    if (on) { last = performance.now(); raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf);
+  }
+
+  Tabs.onChange(id => {
+    scatterTarget = id ? 1 : 0;
+    if (id) for (const p of mosaic) { p.rx = Math.random() * W; p.ry = Math.random() * H; }
+    if (reduce) { scatter = scatterTarget; drawIdle(0, 0); }
+  });
+
+  addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('pointerleave', () => { mouse.x = mouse.y = -1e4; });
+  // click anywhere (or press a key) to skip the intro; click the name later to replay it
+  addEventListener('pointerdown', e => { if (mode === 'intro' && !e.target.closest('.tab')) { build(); finish(); } });
+  addEventListener('keydown', () => { if (mode === 'intro') { build(); finish(); } });
+  nameBox.addEventListener('click', () => { if (mode === 'idle' && !Tabs.current) start(); });
+
+  let rt, lastW = innerWidth;
+  addEventListener('resize', () => {
+    if (innerWidth === lastW) return;
+    lastW = innerWidth; clearTimeout(rt);
+    rt = setTimeout(() => { build(); finish(); scatter = scatterTarget; }, 160);
+  });
+  document.addEventListener('visibilitychange', () => setRunning(!document.hidden));
+
+  last = performance.now();
+  if (location.hash.length > 1) { build(); finish(); scatter = scatterTarget; }
+  else start();
+  if (!reduce) raf = requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
