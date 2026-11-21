@@ -216,54 +216,74 @@
   .bk .ud-links{margin-top:1.4rem}
   @media (prefers-reduced-motion:reduce){.bk-ribbon::after,.bk-soon::before{animation:none}}
   
-    /* ---- collaborate: a handwritten note that gets emailed */
-  .hl{max-width:44rem}
-  .hl-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
-  .hl-kicker b{color:var(--g);font-weight:500}
-  .hl h2{margin-top:.9rem}
-  .hl h2::after{background:var(--g);box-shadow:0 0 12px var(--g)}
-  .note{position:relative;margin:2.4rem .4rem 1.8rem;padding:2.6rem 1.6rem 1.2rem 3.4rem;border-radius:3px;color:#1f2f6b;
-    background:linear-gradient(90deg,transparent 2.5rem,rgba(214,82,96,.45) 2.5rem,rgba(214,82,96,.45) calc(2.5rem + 1.5px),transparent calc(2.5rem + 1.5px)),
-      repeating-linear-gradient(180deg,transparent 0 35px,rgba(63,96,170,.22) 35px 36px),#fbf6e9;
-    background-position:0 0,0 22px,0 0;
-    box-shadow:0 1px 0 rgba(0,0,0,.05),0 22px 50px -18px rgba(0,0,0,.75),0 2px 6px rgba(0,0,0,.25);
-    transform:rotate(-1.1deg);transition:transform .7s cubic-bezier(.5,0,.6,1),opacity .6s ease .15s}
-  .note::before{content:"";position:absolute;top:-14px;left:50%;width:120px;height:30px;transform:translateX(-50%) rotate(2deg);
-    background:rgba(255,225,90,.55);box-shadow:0 1px 3px rgba(0,0,0,.15);backdrop-filter:blur(1px)}
-  .note .q{font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:1.75rem;line-height:36px;color:#16224f}
-  .note textarea{display:block;width:100%;min-height:252px;margin-top:0;padding:0;border:0;border-radius:0;background:transparent;resize:vertical;
-    font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.55rem;line-height:36px;color:#22358a;caret-color:#22358a;outline:none}
-  .note textarea::placeholder{color:rgba(34,53,138,.38)}
-  .note .sig{text-align:right;font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.6rem;line-height:36px;color:#22358a;min-height:36px}
-  .note.sent{transform:translate(55vw,-70vh) rotate(28deg) scale(.2);opacity:0}
-  .hl-fields{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-  .hl-fields label,.hl-who>span{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  .hl-fields label{display:grid;gap:.35rem}
-  .hl input[type=text],.hl input[type=email]{font:400 .95rem "Space Grotesk",sans-serif;color:var(--ink);background:rgba(6,9,20,.75);border:1px solid rgba(233,237,255,.14);border-radius:10px;padding:.7rem .85rem;outline:none;width:100%}
-  .hl input[type=text]:focus,.hl input[type=email]:focus{border-color:var(--g)}
-  .hl-who{margin-top:1.1rem;display:grid;gap:.5rem}
-  .hl-chips{position:relative;display:flex;flex-wrap:wrap;gap:.4rem}
-  .hl-chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
-  .hl-chips label{font-size:.78rem;padding:.42rem .8rem;border-radius:999px;border:1px solid rgba(233,237,255,.16);color:var(--muted);cursor:pointer;transition:all .2s}
-  .hl-chips input:checked+label{color:#05070f;background:var(--g);border-color:var(--g)}
-  .hl-chips input:focus-visible+label{outline:2px solid var(--g);outline-offset:2px}
-  .hl-send{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
-  .hl-send button{font:500 .95rem "Space Grotesk",sans-serif;color:var(--ink);cursor:pointer;padding:.8rem 1.4rem;border-radius:999px;border:1px solid rgba(63,214,224,.65);background:rgba(63,214,224,.10);box-shadow:0 0 26px -8px rgba(63,214,224,.5);transition:transform .2s,background .2s}
-  .hl-send button:hover{transform:translateY(-2px);background:rgba(63,214,224,.18)}
-  .hl-send button:disabled{opacity:.6;cursor:wait;transform:none}
-  .hl-status{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
-  .hl-status.err{color:var(--a)}
-  .hl-status a{color:var(--g)}
-  .hl-hp{position:absolute;left:-9999px}
-  .thanks{display:none;margin:2.4rem .4rem;padding:2.2rem 2rem;border-radius:3px;background:#fbf6e9;color:#22358a;transform:rotate(.8deg);
-    box-shadow:0 22px 50px -18px rgba(0,0,0,.75);font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.7rem;line-height:1.35;animation:pageIn .6s ease}
-  .thanks b{font-weight:700;color:#16224f}
-  .thanks .from{display:block;text-align:right;margin-top:.8rem}
-  .hl.done .thanks{display:block}
-  .hl.done .note,.hl.done .hl-fields,.hl.done .hl-who,.hl.done .hl-send{display:none}
-  @media (max-width:600px){.hl-fields{grid-template-columns:1fr}.note{margin-left:0;margin-right:0;padding-left:3rem;transform:rotate(-.5deg)}}
-  @media (prefers-reduced-motion:reduce){.note{transition:none}}
-  
+    /* ---- collaborate: sequencing submission */
+  .sq{max-width:46rem}
+  .sq-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .sq-kicker b{color:var(--g);font-weight:500}
+  .sq h2{margin-top:.9rem}
+  .sq h2::after{background:var(--g);box-shadow:0 0 12px var(--g)}
+  .sq-card{position:relative;margin-top:.4rem;border-radius:14px;background:#070b18;border:1px solid rgba(233,237,255,.12);
+    box-shadow:0 30px 70px -28px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.04);font-family:var(--mono)}
+  .sq-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.75rem 1.1rem;border-bottom:1px solid rgba(233,237,255,.08);
+    font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .sq-top b{color:var(--g);font-weight:500;letter-spacing:.08em}
+  .sq-body{padding:1.1rem 1.1rem 1.3rem;display:grid;gap:1rem}
+  .sq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .sq-f{display:grid;gap:.4rem}
+  .sq-f>span,.sq-f>label{font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .sq input[type=text],.sq input[type=email]{font:400 .9rem var(--mono);color:var(--ink);background:transparent;border:0;border-bottom:1px dashed rgba(233,237,255,.25);
+    border-radius:0;padding:.35rem 0;outline:none;width:100%}
+  .sq input[type=text]:focus,.sq input[type=email]:focus{border-bottom-color:var(--g)}
+  .sq input::placeholder,.sq textarea::placeholder{color:#4b5378}
+  .sq-chips{position:relative;display:flex;flex-wrap:wrap;gap:.4rem}
+  .sq-chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+  .sq-chips label{text-transform:none;letter-spacing:.02em;font-size:.72rem;padding:.35rem .7rem;border-radius:6px;border:1px solid rgba(233,237,255,.16);color:var(--muted);cursor:pointer;transition:all .2s}
+  .sq-chips input:checked+label{color:#05070f;background:var(--g);border-color:var(--g)}
+  .sq-chips input:focus-visible+label{outline:2px solid var(--g);outline-offset:2px}
+  .sq-well{position:relative;border-radius:10px;background:#03050c;border:1px solid rgba(233,237,255,.1);padding:.9rem 1rem;transition:border-color .2s}
+  .sq-well:focus-within{border-color:rgba(63,214,224,.55)}
+  .sq-well textarea{display:block;width:100%;min-height:150px;resize:vertical;background:transparent;border:0;outline:none;padding:0;
+    font:400 .95rem/1.7 var(--mono);color:#e9edff;caret-color:var(--g)}
+  .pip{position:absolute;left:0;top:0;width:30px;height:102px;z-index:3;pointer-events:none;transition:transform .14s ease-out;filter:drop-shadow(0 6px 6px rgba(0,0,0,.5))}
+  .pip svg{display:block;width:100%;height:100%;overflow:visible;transform-origin:15px 101px;transform:rotate(17deg);animation:pipBob 2.6s ease-in-out infinite}
+  @keyframes pipBob{0%,100%{transform:rotate(15deg) translateY(0)}50%{transform:rotate(20deg) translateY(-6px)}}
+  .pip .pip-plunger{transition:transform .08s ease-out}
+  .pip.press .pip-plunger{transform:translateY(5px)}
+  .drop{position:absolute;z-index:2;width:7px;height:9px;margin:-2px 0 0 -3.5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;pointer-events:none;animation:dropFall .5s ease-in forwards}
+  @keyframes dropFall{0%{transform:translateY(-4px) scale(.4);opacity:0}25%{opacity:1;transform:translateY(0) scale(1)}100%{transform:translateY(16px) scale(.35);opacity:0}}
+  .sq-dna{border-radius:10px;background:rgba(3,5,12,.6);border:1px solid rgba(233,237,255,.08);padding:.7rem .9rem}
+  .sq-dna-head{display:flex;justify-content:space-between;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+  .sq-dna-head b{color:var(--g);font-weight:500}
+  .sq-dna-seq{font-size:.76rem;line-height:1.6;letter-spacing:.12em;word-break:break-all;max-height:4.8em;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(233,237,255,.15) transparent}
+  .sq .A{color:var(--a)} .sq .C{color:var(--c)} .sq .G{color:var(--g)} .sq .T{color:var(--t)}
+  .sq .nw{color:#fff;text-shadow:0 0 8px #fff}
+  .sq-empty{color:#4b5378;letter-spacing:.02em}
+  .sq-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+  .sq-actions button{font:500 .85rem var(--mono);letter-spacing:.06em;color:#05070f;background:var(--g);border:0;border-radius:8px;padding:.75rem 1.2rem;cursor:pointer;
+    box-shadow:0 0 24px -6px rgba(63,214,224,.7);transition:transform .2s,filter .2s}
+  .sq-actions button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+  .sq-actions button:disabled{opacity:.55;cursor:wait;transform:none}
+  .sq-status{font-size:.72rem;color:var(--muted)}
+  .sq-status.err{color:var(--a)}
+  .sq-status a{color:var(--g)}
+  .sq-hp{position:absolute;left:-9999px}
+  .sq-run{border-radius:10px;background:#03050c;border:1px solid rgba(233,237,255,.1);padding:.8rem .9rem .9rem}
+  .sq-run[hidden]{display:none}
+  .sq-run-head{display:flex;justify-content:space-between;gap:1rem;font-size:.72rem;color:var(--muted);margin-bottom:.5rem}
+  .sq-run-head #sqPhase{color:var(--g)}
+  .sq-run canvas{display:block;width:100%;height:150px}
+  .sq-bar{height:4px;border-radius:2px;background:rgba(233,237,255,.08);overflow:hidden;margin-top:.6rem}
+  .sq-bar i{display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g)}
+  .sq-card.done{display:none}
+  .sq-report{margin-top:.4rem;border-radius:14px;background:#070b18;border:1px solid rgba(63,214,224,.35);padding:1.3rem 1.3rem 1.1rem;font-family:var(--mono);animation:pageIn .5s ease}
+  .sq-report[hidden]{display:none}
+  .sq-rep-top{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g)}
+  .sq-report p{margin-top:.9rem;font-family:"Space Grotesk",sans-serif;font-size:1.05rem;line-height:1.65;color:#cfd5f2}
+  .sq-report p b{color:#fff;font-weight:500}
+  .sq-rep-seq{margin-top:.9rem;font-size:.74rem;letter-spacing:.12em;word-break:break-all;opacity:.8}
+  .sq-sign{margin-top:.6rem;text-align:right;font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:1.9rem;color:#e9edff}
+  @media (max-width:600px){.sq-grid{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){.pip,.pip svg{animation:none;transition:none}.drop{display:none}}
     /* ---- learn: terminal library */
   .lt{max-width:52rem}
   .lt-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
@@ -542,86 +562,201 @@ const LEARN = [
   </div></div>
 </section>
 <section class="tab-page" id="tab-hello" data-tab="hello" data-title="Collaborate" style="--k:#3fd6e0" hidden>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 <div class="tab-inner">
-  <form class="hl" id="hlForm" novalidate>
-    <div class="hl-kicker">&gt;<b>chrX</b>:collaborate | open reading frame</div>
+  <form class="sq" id="sqForm" novalidate>
+    <div class="sq-kicker">&gt;<b>chrX</b>:collaborate | open reading frame</div>
     <h2>Let's collaborate</h2>
-    <p class="lede">Researchers, students, educators, readers and fellow overlanders: I'd love to hear from you. Write me a note.</p>
+    <p class="lede">Researchers, students, educators, readers and fellow overlanders: send me a sample. Write your message, then run it through the sequencer and it comes straight to me.</p>
 
-    <div class="note" id="hlNote">
-      <div class="q">What inspired you to reach out?</div>
-      <label class="sr-only" for="hlMsg">Your note</label>
-      <textarea id="hlMsg" name="message" placeholder="Tell me your thoughts…" required></textarea>
-      <div class="sig" id="hlSig" aria-hidden="true"></div>
-    </div>
-
-    <div class="hl-fields">
-      <label>Your name<input type="text" name="name" id="hlName" autocomplete="name" required></label>
-      <label>Your email (so I can reply)<input type="email" name="email" id="hlEmail" autocomplete="email" required></label>
-    </div>
-    <div class="hl-who"><span>I am…</span>
-      <div class="hl-chips">
-        <input type="radio" name="role" id="r1" value="a researcher"><label for="r1">a researcher</label>
-        <input type="radio" name="role" id="r2" value="a student"><label for="r2">a student</label>
-        <input type="radio" name="role" id="r3" value="an educator"><label for="r3">an educator</label>
-        <input type="radio" name="role" id="r4" value="a reader / press"><label for="r4">a reader / press</label>
-        <input type="radio" name="role" id="r5" value="a fellow traveller"><label for="r5">a fellow traveller</label>
-        <input type="radio" name="role" id="r6" value="something else"><label for="r6">something else</label>
+    <div class="sq-card" id="sqCard">
+      <div class="sq-top"><span>▣ sample submission</span><span>sample id: <b id="sqId">NOTE-0000</b></span></div>
+      <div class="sq-body">
+        <div class="sq-grid">
+          <label class="sq-f"><span>submitted by</span><input type="text" id="sqName" name="name" autocomplete="name" placeholder="your name" required></label>
+          <label class="sq-f"><span>reply to</span><input type="email" id="sqEmail" name="email" autocomplete="email" placeholder="you@example.com" required></label>
+        </div>
+        <div class="sq-f"><span>sample type</span>
+          <div class="sq-chips">
+            <input type="radio" name="role" id="sr1" value="a researcher"><label for="sr1">researcher</label>
+            <input type="radio" name="role" id="sr2" value="a student"><label for="sr2">student</label>
+            <input type="radio" name="role" id="sr3" value="an educator"><label for="sr3">educator</label>
+            <input type="radio" name="role" id="sr4" value="a reader / press"><label for="sr4">reader / press</label>
+            <input type="radio" name="role" id="sr5" value="a fellow traveller"><label for="sr5">fellow traveller</label>
+            <input type="radio" name="role" id="sr6" value="something else"><label for="sr6">other</label>
+          </div>
+        </div>
+        <div class="sq-f"><label for="sqMsg">sample · what inspired you to reach out?</label>
+          <div class="sq-well" id="sqWell">
+            <textarea id="sqMsg" name="message" placeholder="type your message here…" required></textarea>
+            <div class="pip" id="sqPip" aria-hidden="true"><svg viewBox="0 0 44 150">
+              <g class="pip-plunger"><rect x="15" y="0" width="14" height="9" rx="3" fill="#3fd6e0"/><rect x="19.5" y="8" width="5" height="13" fill="#cfd5f2"/></g>
+              <rect x="10" y="20" width="24" height="62" rx="9" fill="#eef1fb" stroke="#8d96bd" stroke-width="1.5"/>
+              <rect x="10.8" y="36" width="22.4" height="10" fill="#3fd6e0" opacity=".85"/>
+              <rect x="33" y="27" width="7" height="22" rx="3" fill="#d7dcf0" stroke="#8d96bd" stroke-width="1.2"/>
+              <path d="M14 82h16l-3 14H17z" fill="#d7dcf0" stroke="#8d96bd" stroke-width="1.2"/>
+              <path d="M17.5 96h9L22.7 148h-1.4z" fill="rgba(255,255,255,.6)" stroke="rgba(110,130,185,.8)" stroke-width="1"/>
+              <path id="sqLiquid" d="M20.4 128h3.2l-1.1 19h-1z" fill="#3fd6e0"/>
+            </svg></div>
+          </div>
+        </div>
+        <div class="sq-dna">
+          <div class="sq-dna-head"><span>sample → DNA</span><span><b id="sqBp">0</b> bp</span></div>
+          <div class="sq-dna-seq" id="sqDna"><span class="sq-empty">start typing and watch your words turn into DNA…</span></div>
+        </div>
+        <input class="sq-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="sq-actions"><button type="submit" id="sqRun">▶ run sequencing</button><span class="sq-status" id="sqStatus" role="status"></span></div>
+        <div class="sq-run" id="sqRunBox" hidden>
+          <div class="sq-run-head"><span id="sqPhase">loading sample…</span><span id="sqPct">0%</span></div>
+          <canvas id="sqTrace" aria-hidden="true"></canvas>
+          <div class="sq-bar"><i id="sqBar"></i></div>
+        </div>
       </div>
     </div>
-    <input class="hl-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <div class="hl-send"><button type="submit" id="hlBtn">Send note ✉</button><span class="hl-status" id="hlStatus" role="status"></span></div>
-
-    <div class="thanks" id="hlThanks" role="status"></div>
+    <div class="sq-report" id="sqReport" role="status" hidden></div>
   </form>
 </div>
 <script>
 (() => {
   const TO = 'nesmaab96@gmail.com';          // where notes are sent
-  const f = document.getElementById('hlForm'), note = document.getElementById('hlNote'),
-        msg = document.getElementById('hlMsg'), nameEl = document.getElementById('hlName'), emailEl = document.getElementById('hlEmail'),
-        sig = document.getElementById('hlSig'), btn = document.getElementById('hlBtn'), st = document.getElementById('hlStatus'),
-        thanks = document.getElementById('hlThanks');
-  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  nameEl.addEventListener('input', () => { sig.textContent = nameEl.value.trim() ? '— ' + nameEl.value.trim() : ''; });
-  f.addEventListener('input', () => { if (st.classList.contains('err')) { st.textContent = ''; st.className = 'hl-status'; } });
+  const $ = id => document.getElementById(id);
+  const f = $('sqForm'), card = $('sqCard'), msg = $('sqMsg'), nameEl = $('sqName'), emailEl = $('sqEmail'), well = $('sqWell'),
+        pip = $('sqPip'), liquid = $('sqLiquid'), st = $('sqStatus'), btn = $('sqRun'), runBox = $('sqRunBox'),
+        phase = $('sqPhase'), pct = $('sqPct'), bar = $('sqBar'), canvas = $('sqTrace'), report = $('sqReport');
+  const COL = { A: '#ff5d8f', C: '#8b7bff', G: '#3fd6e0', T: '#ffb84d' };
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const sampleId = 'NOTE-' + String(Math.floor(1000 + Math.random() * 9000));
+  $('sqId').textContent = sampleId;
+
+  // ---- message -> DNA (2 bits per base: A=00 C=01 G=10 T=11)
+  const enc = new TextEncoder();
+  const toDNA = t => { let s = ''; for (const b of enc.encode(t)) for (let k = 6; k >= 0; k -= 2) s += 'ACGT'[(b >> k) & 3]; return s; };
+  const colour = s => s.replace(/[ACGT]/g, m => `<span class="${m}">${m}</span>`);
+  let lastLen = 0;
+  function renderDNA() {
+    const dna = toDNA(msg.value), el = $('sqDna');
+    $('sqBp').textContent = dna.length.toLocaleString();
+    if (!dna.length) { el.innerHTML = '<span class="sq-empty">start typing and watch your words turn into DNA…</span>'; lastLen = 0; return dna; }
+    const shown = dna.slice(-1200), off = dna.length - shown.length;
+    let h = off ? '<span class="sq-empty">…</span>' : '';
+    for (let i = 0; i < shown.length; i++) h += `<span class="${shown[i]}${off + i >= lastLen ? ' nw' : ''}">${shown[i]}</span>`;
+    el.innerHTML = h; el.scrollTop = el.scrollHeight;
+    setTimeout(() => el.querySelectorAll('.nw').forEach(n => n.classList.remove('nw')), 350);
+    lastLen = dna.length;
+    return dna;
+  }
+
+  // ---- floating pipette that follows the caret and drips each letter
+  const mirror = document.createElement('div'); mirror.setAttribute('aria-hidden', 'true'); well.appendChild(mirror);
+  function caret() {
+    const cs = getComputedStyle(msg);
+    Object.assign(mirror.style, { position: 'absolute', visibility: 'hidden', top: msg.offsetTop + 'px', left: msg.offsetLeft + 'px',
+      width: msg.clientWidth + 'px', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', font: cs.font, lineHeight: cs.lineHeight,
+      letterSpacing: cs.letterSpacing, padding: cs.padding, boxSizing: cs.boxSizing });
+    const pos = msg.selectionEnd ?? msg.value.length;
+    mirror.textContent = msg.value.slice(0, pos);
+    const m = document.createElement('span'); m.textContent = msg.value.slice(pos) || '.'; mirror.appendChild(m);
+    return { x: msg.offsetLeft + m.offsetLeft, y: msg.offsetTop + m.offsetTop - msg.scrollTop };
+  }
+  function placePip() {
+    const c = caret();
+    const y = Math.max(msg.offsetTop, Math.min(c.y, msg.offsetTop + msg.clientHeight - 24));
+    pip.style.transform = `translate(${c.x - 13}px, ${y - 92}px)`;
+    return { x: c.x + 2, y: y + 3 };
+  }
+  function drip(col) {
+    const t = placePip();
+    pip.classList.add('press'); setTimeout(() => pip.classList.remove('press'), 110);
+    liquid.setAttribute('fill', col);
+    if (calm) return;
+    const d = document.createElement('span'); d.className = 'drop';
+    d.style.left = t.x + 'px'; d.style.top = t.y + 'px'; d.style.background = col;
+    well.appendChild(d); setTimeout(() => d.remove(), 520);
+  }
+  msg.addEventListener('input', e => {
+    const dna = renderDNA();
+    if (e.inputType && e.inputType.startsWith('insert') && dna.length) drip(COL[dna[dna.length - 1]]); else placePip();
+  });
+  ['click', 'keyup', 'focus', 'scroll'].forEach(ev => msg.addEventListener(ev, placePip));
+  addEventListener('resize', placePip);
+  new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) placePip(); })).observe(well);
+  f.addEventListener('input', () => { if (st.classList.contains('err')) { st.textContent = ''; st.className = 'sq-status'; } });
+
+  // ---- chromatogram: draws the trace of the visitor's own DNA
+  function runTrace(dna, ms) {
+    const bases = dna.slice(0, 220) || 'ACGT', dpr = Math.min(devicePixelRatio || 1, 2);
+    const W = canvas.clientWidth, H = 150; canvas.width = W * dpr; canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const dx = 13, sig = 3.4, L = 30 + bases.length * dx + W, idx = { A: 0, C: 1, G: 2, T: 3 };
+    const ch = [0, 1, 2, 3].map(() => new Float32Array(L)), centers = [];
+    for (let i = 0; i < bases.length; i++) {
+      const xi = 30 + i * dx, c = idx[bases[i]], h = .55 + .45 * Math.random(); centers.push(xi);
+      for (let x = Math.max(0, xi - 14); x < Math.min(L, xi + 14); x++) {
+        ch[c][x] += h * Math.exp(-((x - xi) ** 2) / (2 * sig * sig));
+        for (let o = 0; o < 4; o++) if (o !== c) ch[o][x] += .05 * Math.random() * Math.exp(-((x - xi) ** 2) / 40);
+      }
+    }
+    const end = 30 + bases.length * dx, keys = 'ACGT';
+    return new Promise(done => {
+      const t0 = performance.now();
+      (function frame(now) {
+        const p = Math.min(1, (now - t0) / ms), head = p * end, off = Math.max(0, head - W * .85);
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = 'rgba(233,237,255,.06)'; ctx.lineWidth = 1;
+        for (let gy = 30; gy < H; gy += 30) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+        for (let c = 0; c < 4; c++) {
+          ctx.beginPath(); ctx.strokeStyle = COL[keys[c]]; ctx.lineWidth = 1.6;
+          for (let px = 0; px <= Math.min(W, head - off); px++) {
+            const v = ch[c][Math.floor(px + off)] || 0, y = H - 8 - v * (H - 40);
+            px ? ctx.lineTo(px, y) : ctx.moveTo(px, y);
+          }
+          ctx.stroke();
+        }
+        ctx.font = '600 11px ui-monospace, monospace'; ctx.textAlign = 'center';
+        centers.forEach((xi, i) => { if (xi <= head && xi - off >= 0 && xi - off <= W) { ctx.fillStyle = COL[bases[i]]; ctx.fillText(bases[i], xi - off, 14); } });
+        ctx.fillStyle = 'rgba(233,237,255,.5)'; ctx.fillRect(Math.min(W, head - off), 20, 1, H - 20);
+        bar.style.width = (p * 100) + '%'; pct.textContent = Math.round(p * 100) + '%';
+        if (p < 1) requestAnimationFrame(frame); else done();
+      })(t0);
+    });
+  }
+  const wait = ms => new Promise(r => setTimeout(r, ms));
   const mailto = d => `mailto:${TO}?subject=${encodeURIComponent('Note from ' + d.name)}&body=${encodeURIComponent(d.message + '\n\n— ' + d.name + ' (' + d.role + ')\n' + d.email)}`;
 
   f.addEventListener('submit', async e => {
     e.preventDefault();
     const d = { name: nameEl.value.trim(), email: emailEl.value.trim(), message: msg.value.trim(),
                 role: (f.querySelector('input[name=role]:checked') || {}).value || 'not specified' };
-    st.className = 'hl-status';
-    if (d.message.length < 3) { st.textContent = 'Write a few words on the note first.'; st.classList.add('err'); msg.focus(); return; }
-    if (!d.name) { st.textContent = 'Please add your name.'; st.classList.add('err'); nameEl.focus(); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { st.textContent = 'Please add a valid email so I can reply.'; st.classList.add('err'); emailEl.focus(); return; }
-    btn.disabled = true;
-    let i = 0; const tick = setInterval(() => { st.textContent = 'transmitting ' + 'ATGCATGC'.slice(i % 4, i % 4 + 4) + '…'; i++; }, 120);
-    try {
-      const r = await fetch('https://formsubmit.co/ajax/' + TO, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name: d.name, email: d.email, 'I am': d.role, message: d.message,
-          _subject: 'New note from ' + d.name + ' via itsnesma.github.io', _template: 'box', _captcha: 'false',
-          _honey: f.querySelector('[name=_honey]').value })
-      });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'send failed');
-      clearInterval(tick); st.textContent = '';
-      note.classList.add('sent');
-      setTimeout(() => {
-        thanks.innerHTML = `Thank you, <b>${esc(d.name)}</b>! Your note is on its way to me.<br>I read every one, and I'll write back to ${esc(d.email)} soon.<span class="from">— Nesma</span>`;
-        f.classList.add('done');
-      }, 750);
-    } catch (err) {
-      clearInterval(tick); btn.disabled = false;
-      st.className = 'hl-status err';
-      st.innerHTML = `Couldn't send just now. <a href="${mailto(d)}">Send it from your email app instead</a>.`;
-    }
-  });
-})();
-</script>
-</section>
+    st.className = 'sq-status';
+    if (d.message.length < 3) { st.textContent = '! sample is empty: write a few words first'; st.classList.add('err'); msg.focus(); return; }
+    if (!d.name) { st.textContent = '! add your name under "submitted by"'; st.classList.add('err'); nameEl.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { st.textContent = '! add a valid email under "reply to"'; st.classList.add('err'); emailEl.focus(); return; }
+    const dna = toDNA(d.message);
+    btn.disabled = true; st.textContent = ''; runBox.hidden = false; bar.style.width = '0'; pct.textContent = '0%';
+    phase.textContent = 'loading sample…';
+    const send = fetch('https://formsubmit.co/ajax/' + TO, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ name: d.name, email: d.email, 'I am': d.role, message: d.message, 'sample id': sampleId,
+        'message in DNA': dna.length > 2000 ? dna.slice(0, 2000) + '…' : dna,
+        _subject: 'New note from ' + d.name + ' (' + sampleId + ') via itsnesma.github.io', _template: 'box', _captcha: 'false',
+        _honey: f.querySelector('[name=_honey]').value })
+    }).then(r => r.json().then(j => r.ok && String(j.success) === 'true')).catch(() => false);
+    await wait(calm ? 0 : 450);
+    phase.textContent = 'sequencing…';
+    await runTrace(dna, calm ? 10 : 3200);
+    phase.textContent = 'basecalling · sending to Nesma…';
+    const ok = await Promise.race([send, wait(15000).then(() => false)]);
+    if (ok) {
+      phase.textContent = '✓ read complete · delivered';
+      await wait(calm ? 0 : 700);
+      report.innerHTML = `<div class="sq-rep-top">✓ run complete · ${sampleId} · ${dna.length.toLocaleString()} bp · Q40</div>
+        <p>Thank you, <b>${esc(d.name)}</b>! Your sample reached me. I read every one, and I'll reply to ${esc(d.email)} soon.</p>
+        <div class="sq-rep-seq">${colour(dna.slice(0, 120))}${dna.length > 120 ? '…' : ''}</div>
+        <div class="sq-sign">— Nesma</div>`;
+      card.classList.add('done'); report.hidden = false;
+    } else {
+      phase.textContent = '✗ run failed: the sample could not be delivered';
 </main>
 
 <script>
