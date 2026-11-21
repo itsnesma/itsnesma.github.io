@@ -216,6 +216,53 @@
   .bk .ud-links{margin-top:1.4rem}
   @media (prefers-reduced-motion:reduce){.bk-ribbon::after,.bk-soon::before{animation:none}}
   
+    /* ---- collaborate: a handwritten note that gets emailed */
+  .hl{max-width:44rem}
+  .hl-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .hl-kicker b{color:var(--g);font-weight:500}
+  .hl h2{margin-top:.9rem}
+  .hl h2::after{background:var(--g);box-shadow:0 0 12px var(--g)}
+  .note{position:relative;margin:2.4rem .4rem 1.8rem;padding:2.6rem 1.6rem 1.2rem 3.4rem;border-radius:3px;color:#1f2f6b;
+    background:linear-gradient(90deg,transparent 2.5rem,rgba(214,82,96,.45) 2.5rem,rgba(214,82,96,.45) calc(2.5rem + 1.5px),transparent calc(2.5rem + 1.5px)),
+      repeating-linear-gradient(180deg,transparent 0 35px,rgba(63,96,170,.22) 35px 36px),#fbf6e9;
+    background-position:0 0,0 22px,0 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.05),0 22px 50px -18px rgba(0,0,0,.75),0 2px 6px rgba(0,0,0,.25);
+    transform:rotate(-1.1deg);transition:transform .7s cubic-bezier(.5,0,.6,1),opacity .6s ease .15s}
+  .note::before{content:"";position:absolute;top:-14px;left:50%;width:120px;height:30px;transform:translateX(-50%) rotate(2deg);
+    background:rgba(255,225,90,.55);box-shadow:0 1px 3px rgba(0,0,0,.15);backdrop-filter:blur(1px)}
+  .note .q{font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:1.75rem;line-height:36px;color:#16224f}
+  .note textarea{display:block;width:100%;min-height:252px;margin-top:0;padding:0;border:0;border-radius:0;background:transparent;resize:vertical;
+    font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.55rem;line-height:36px;color:#22358a;caret-color:#22358a;outline:none}
+  .note textarea::placeholder{color:rgba(34,53,138,.38)}
+  .note .sig{text-align:right;font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.6rem;line-height:36px;color:#22358a;min-height:36px}
+  .note.sent{transform:translate(55vw,-70vh) rotate(28deg) scale(.2);opacity:0}
+  .hl-fields{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  .hl-fields label,.hl-who>span{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .hl-fields label{display:grid;gap:.35rem}
+  .hl input[type=text],.hl input[type=email]{font:400 .95rem "Space Grotesk",sans-serif;color:var(--ink);background:rgba(6,9,20,.75);border:1px solid rgba(233,237,255,.14);border-radius:10px;padding:.7rem .85rem;outline:none;width:100%}
+  .hl input[type=text]:focus,.hl input[type=email]:focus{border-color:var(--g)}
+  .hl-who{margin-top:1.1rem;display:grid;gap:.5rem}
+  .hl-chips{position:relative;display:flex;flex-wrap:wrap;gap:.4rem}
+  .hl-chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+  .hl-chips label{font-size:.78rem;padding:.42rem .8rem;border-radius:999px;border:1px solid rgba(233,237,255,.16);color:var(--muted);cursor:pointer;transition:all .2s}
+  .hl-chips input:checked+label{color:#05070f;background:var(--g);border-color:var(--g)}
+  .hl-chips input:focus-visible+label{outline:2px solid var(--g);outline-offset:2px}
+  .hl-send{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+  .hl-send button{font:500 .95rem "Space Grotesk",sans-serif;color:var(--ink);cursor:pointer;padding:.8rem 1.4rem;border-radius:999px;border:1px solid rgba(63,214,224,.65);background:rgba(63,214,224,.10);box-shadow:0 0 26px -8px rgba(63,214,224,.5);transition:transform .2s,background .2s}
+  .hl-send button:hover{transform:translateY(-2px);background:rgba(63,214,224,.18)}
+  .hl-send button:disabled{opacity:.6;cursor:wait;transform:none}
+  .hl-status{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .hl-status.err{color:var(--a)}
+  .hl-status a{color:var(--g)}
+  .hl-hp{position:absolute;left:-9999px}
+  .thanks{display:none;margin:2.4rem .4rem;padding:2.2rem 2rem;border-radius:3px;background:#fbf6e9;color:#22358a;transform:rotate(.8deg);
+    box-shadow:0 22px 50px -18px rgba(0,0,0,.75);font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-size:1.7rem;line-height:1.35;animation:pageIn .6s ease}
+  .thanks b{font-weight:700;color:#16224f}
+  .thanks .from{display:block;text-align:right;margin-top:.8rem}
+  .hl.done .thanks{display:block}
+  .hl.done .note,.hl.done .hl-fields,.hl.done .hl-who,.hl.done .hl-send{display:none}
+  @media (max-width:600px){.hl-fields{grid-template-columns:1fr}.note{margin-left:0;margin-right:0;padding-left:3rem;transform:rotate(-.5deg)}}
+  @media (prefers-reduced-motion:reduce){.note{transition:none}}
   /* ---- under development: "still being sequenced" */
   .ud{max-width:52rem}
   .ud-head{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:1.1rem;letter-spacing:.02em}
@@ -338,17 +385,86 @@
     <div class="ud-links"><a class="btn primary" href="cv.html">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
   </div></div>
 </section>
-<section class="tab-page" id="tab-hello" data-tab="hello" data-title="Collaborate" style="--k:#ffffff" hidden>
+<section class="tab-page" id="tab-hello" data-tab="hello" data-title="Collaborate" style="--k:#3fd6e0" hidden>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <div class="tab-inner">
-  <div class="ud" data-cov="0.7">
-    <div class="ud-head">&gt;<b>chrX</b>:collaborate | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
-    <h2>Collaborate</h2>
-    <p class="lede">This region is still being sequenced. A proper way to introduce yourself is on its way.</p>
-    <div class="ud-reads" aria-hidden="true"></div>
-    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
-    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
-    <div class="ud-links"><a class="btn primary" href="cv.html">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
-  </div></div>
+  <form class="hl" id="hlForm" novalidate>
+    <div class="hl-kicker">&gt;<b>chrX</b>:collaborate | open reading frame</div>
+    <h2>Let's collaborate</h2>
+    <p class="lede">Researchers, students, educators, readers and fellow overlanders: I'd love to hear from you. Write me a note.</p>
+
+    <div class="note" id="hlNote">
+      <div class="q">What inspired you to reach out?</div>
+      <label class="sr-only" for="hlMsg">Your note</label>
+      <textarea id="hlMsg" name="message" placeholder="Tell me your thoughts…" required></textarea>
+      <div class="sig" id="hlSig" aria-hidden="true"></div>
+    </div>
+
+    <div class="hl-fields">
+      <label>Your name<input type="text" name="name" id="hlName" autocomplete="name" required></label>
+      <label>Your email (so I can reply)<input type="email" name="email" id="hlEmail" autocomplete="email" required></label>
+    </div>
+    <div class="hl-who"><span>I am…</span>
+      <div class="hl-chips">
+        <input type="radio" name="role" id="r1" value="a researcher"><label for="r1">a researcher</label>
+        <input type="radio" name="role" id="r2" value="a student"><label for="r2">a student</label>
+        <input type="radio" name="role" id="r3" value="an educator"><label for="r3">an educator</label>
+        <input type="radio" name="role" id="r4" value="a reader / press"><label for="r4">a reader / press</label>
+        <input type="radio" name="role" id="r5" value="a fellow traveller"><label for="r5">a fellow traveller</label>
+        <input type="radio" name="role" id="r6" value="something else"><label for="r6">something else</label>
+      </div>
+    </div>
+    <input class="hl-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="hl-send"><button type="submit" id="hlBtn">Send note ✉</button><span class="hl-status" id="hlStatus" role="status"></span></div>
+
+    <div class="thanks" id="hlThanks" role="status"></div>
+  </form>
+</div>
+<script>
+(() => {
+  const TO = '700049478@uaeu.ac.ae';          // where notes are sent
+  const f = document.getElementById('hlForm'), note = document.getElementById('hlNote'),
+        msg = document.getElementById('hlMsg'), nameEl = document.getElementById('hlName'), emailEl = document.getElementById('hlEmail'),
+        sig = document.getElementById('hlSig'), btn = document.getElementById('hlBtn'), st = document.getElementById('hlStatus'),
+        thanks = document.getElementById('hlThanks');
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  nameEl.addEventListener('input', () => { sig.textContent = nameEl.value.trim() ? '— ' + nameEl.value.trim() : ''; });
+  f.addEventListener('input', () => { if (st.classList.contains('err')) { st.textContent = ''; st.className = 'hl-status'; } });
+  const mailto = d => `mailto:${TO}?subject=${encodeURIComponent('Note from ' + d.name)}&body=${encodeURIComponent(d.message + '\n\n— ' + d.name + ' (' + d.role + ')\n' + d.email)}`;
+
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = { name: nameEl.value.trim(), email: emailEl.value.trim(), message: msg.value.trim(),
+                role: (f.querySelector('input[name=role]:checked') || {}).value || 'not specified' };
+    st.className = 'hl-status';
+    if (d.message.length < 3) { st.textContent = 'Write a few words on the note first.'; st.classList.add('err'); msg.focus(); return; }
+    if (!d.name) { st.textContent = 'Please add your name.'; st.classList.add('err'); nameEl.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { st.textContent = 'Please add a valid email so I can reply.'; st.classList.add('err'); emailEl.focus(); return; }
+    btn.disabled = true;
+    let i = 0; const tick = setInterval(() => { st.textContent = 'transmitting ' + 'ATGCATGC'.slice(i % 4, i % 4 + 4) + '…'; i++; }, 120);
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/' + TO, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ name: d.name, email: d.email, 'I am': d.role, message: d.message,
+          _subject: 'New note from ' + d.name + ' via itsnesma.github.io', _template: 'box', _captcha: 'false',
+          _honey: f.querySelector('[name=_honey]').value })
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'send failed');
+      clearInterval(tick); st.textContent = '';
+      note.classList.add('sent');
+      setTimeout(() => {
+        thanks.innerHTML = `Thank you, <b>${esc(d.name)}</b>! Your note is on its way to me.<br>I read every one, and I'll write back to ${esc(d.email)} soon.<span class="from">— Nesma</span>`;
+        f.classList.add('done');
+      }, 750);
+    } catch (err) {
+      clearInterval(tick); btn.disabled = false;
+      st.className = 'hl-status err';
+      st.innerHTML = `Couldn't send just now. <a href="${mailto(d)}">Send it from your email app instead</a>.`;
+    }
+  });
+})();
+</script>
 </section>
 </main>
 
