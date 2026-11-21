@@ -786,13 +786,13 @@ const LEARN = [
     const dna = toDNA(d.message);
     btn.disabled = true; st.textContent = ''; runBox.hidden = false; bar.style.width = '0'; pct.textContent = '0%';
     phase.textContent = 'loading sample…';
-    const send = fetch('https://formsubmit.co/ajax/' + TO, {
+        const send = fetch('https://api.web3forms.com/submit', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ name: d.name, email: d.email, 'I am': d.role, message: d.message, 'sample id': sampleId,
-        'message in DNA': dna.length > 2000 ? dna.slice(0, 2000) + '…' : dna,
-        _subject: 'New note from ' + d.name + ' (' + sampleId + ') via itsnesma.github.io', _template: 'box', _captcha: 'false',
-        _honey: f.querySelector('[name=_honey]').value })
-        }).then(r => r.json().then(j => { if (r.ok && String(j.success) === 'true') return true; window.sqWhy = j.message || ('HTTP ' + r.status); return false; })).catch(err => { window.sqWhy = 'network: ' + err.message; return false; });
+      body: JSON.stringify({ access_key: 'f8ba20c1-45d4-4335-9dd7-d92375e7a7dd',
+        subject: 'New note from ' + d.name + ' (' + sampleId + ') via itsnesma.github.io', from_name: 'itsnesma.github.io',
+        name: d.name, email: d.email, 'I am': d.role, message: d.message, 'sample id': sampleId,
+        'message in DNA': dna.length > 2000 ? dna.slice(0, 2000) + '…' : dna })
+    }).then(r => r.json().then(j => { if (r.ok && j.success) return true; window.sqWhy = j.message || ('HTTP ' + r.status); return false; })).catch(err => { window.sqWhy = 'network: ' + err.message; return false; });
     await wait(calm ? 0 : 450);
     phase.textContent = 'sequencing…';
     await runTrace(dna, calm ? 10 : 3200);
