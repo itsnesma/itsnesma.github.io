@@ -1,7 +1,7 @@
 ---
 title: "Alexa, what's the weather like today?"
 type: opinion
-summary: "One or two sentences that appear in your writing list."
+summary: "The use of algorithms to detect shape and motion of clouds to forecast severe thunderstorms and cyclones that may have fatal impact on a macrolevel."
 ---
 
 Can Alexa predict the next thunderstorm and save us from the next global crisis? Probably not, but you should definitely ask her if you’re going to need a jacket for brunch on Saturday morning.
