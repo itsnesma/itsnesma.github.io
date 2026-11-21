@@ -1,6 +1,6 @@
 ---
 title: "Alexa, what's the weather like today?"
-type: opinion
+type: machine learning
 summary: "The use of algorithms to detect shape and motion of clouds to forecast severe thunderstorms and cyclones that may have fatal impact on a macrolevel."
 ---
 
