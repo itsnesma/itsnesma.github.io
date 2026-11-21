@@ -1,0 +1,14 @@
+# Settings for GitHub's page builder (Jekyll).
+# Articles live in the _posts folder and appear at itsnesma.github.io/writing/<title>/
+permalink: /writing/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: article
+exclude:
+  - README.md

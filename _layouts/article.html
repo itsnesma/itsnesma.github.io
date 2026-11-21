@@ -1,0 +1,200 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} — nesma</title>
+{% assign blurb = page.summary | default: page.excerpt | strip_html | strip_newlines | truncate: 180 %}
+<meta name="description" content="{{ blurb | escape }}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#fbfaf6">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="nesma">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ blurb | escape }}">
+<meta property="og:url" content="https://itsnesma.github.io{{ page.url }}">
+<meta property="og:image" content="https://itsnesma.github.io/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://itsnesma.github.io/og-image.jpg">
+<style>
+  /* iA Writer Quattro (SIL Open Font License 1.1), loaded from the iA-Fonts repository */
+  @font-face{font-family:"Quattro";font-weight:400;font-style:normal;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Regular.woff2") format("woff2")}
+  @font-face{font-family:"Quattro";font-weight:400;font-style:italic;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Italic.woff2") format("woff2")}
+  @font-face{font-family:"Quattro";font-weight:700;font-style:normal;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Bold.woff2") format("woff2")}
+  @font-face{font-family:"Quattro";font-weight:700;font-style:italic;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2") format("woff2")}
+
+  :root{--bg:#fbfaf6;--ink:#1d1c1a;--soft:#4a4842;--muted:#8b877f;--line:#e6e2d8;--caret:#0f8f99;color-scheme:light}
+  @media (prefers-color-scheme:dark){:root{--bg:#141412;--ink:#ecebe6;--soft:#c3c1b9;--muted:#8a877f;--line:#2b2a26;--caret:#3fd6e0;color-scheme:dark}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:"Quattro","iA Writer Quattro S",ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:clamp(1.02rem,0.95rem + 0.35vw,1.16rem);line-height:1.75;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:underline;text-decoration-color:var(--muted);text-decoration-thickness:1px;text-underline-offset:.22em}
+  a:hover{text-decoration-color:var(--ink)}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  .top{max-width:38rem;margin:0 auto;padding:1.6rem 1.4rem 0;display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)}
+  .top a{text-decoration:none;color:var(--muted)}
+  .top a:hover{color:var(--ink)}
+  article{max-width:38rem;margin:0 auto;padding:clamp(3rem,10vh,6rem) 1.4rem 3rem}
+  .meta{font-size:.8rem;color:var(--muted);letter-spacing:.01em}
+  h1{font-size:clamp(1.9rem,1.3rem + 2.4vw,2.7rem);line-height:1.18;font-weight:700;letter-spacing:-.01em;margin:.8rem 0 0}
+  .sub{margin-top:1rem;color:var(--soft);font-style:italic}
+  .body{margin-top:2.6rem}
+  .body>*+*{margin-top:1.35em}
+  .body h2{font-size:1.3em;line-height:1.3;margin-top:2.2em}
+  .body h3{font-size:1.08em;margin-top:1.8em}
+  .body ul,.body ol{padding-left:1.4em}
+  .body li+li{margin-top:.4em}
+  .body blockquote{padding-left:1.1em;border-left:2px solid var(--ink);color:var(--soft);font-style:italic}
+  .body img{display:block;max-width:100%;height:auto;margin:2em auto}
+  .body figure figcaption,.body img+em{display:block;font-size:.82em;color:var(--muted);text-align:center;margin-top:-1.2em}
+  .body hr{border:0;text-align:center;margin:2.4em 0}
+  .body hr::after{content:"· · ·";color:var(--muted);letter-spacing:.6em}
+  .body code{font-size:.9em;background:var(--line);padding:.08em .3em;border-radius:3px}
+  .body pre{overflow-x:auto;background:var(--line);padding:1em;border-radius:6px;font-size:.85em;line-height:1.55}
+  .body pre code{background:none;padding:0}
+  .end{max-width:38rem;margin:0 auto;padding:0 1.4rem 5rem}
+  .sign{padding-top:1.6rem;border-top:1px solid var(--line);color:var(--soft)}
+  .more{display:flex;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;margin-top:2.2rem;font-size:.86rem}
+  .more span{display:block;font-size:.76rem;color:var(--muted)}
+
+  /* typewriter: untyped text keeps its space (no page jumping) but stays invisible */
+  .tw-g{color:transparent}
+  .tw-g a,.tw-g *{color:transparent;text-decoration-color:transparent}
+  .tw-hide{visibility:hidden}
+  .tw-a{text-decoration-color:transparent!important}
+  .tw-caret{display:inline-block;width:.55ch;height:1.05em;margin:0 -.55ch -.16em 0;background:var(--caret);animation:twBlink 1s steps(1) infinite;position:relative}
+  .tw-caret.busy{animation:none}
+  @keyframes twBlink{50%{opacity:0}}
+  .tw-fade{animation:twFade .7s ease both}
+  @keyframes twFade{from{opacity:0;transform:translateY(6px)}}
+  .tw-ctrl{position:fixed;right:1rem;bottom:1rem;display:flex;gap:.4rem;font:inherit;font-size:.74rem}
+  .tw-ctrl button{font:inherit;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:.4rem .8rem;cursor:pointer}
+  .tw-ctrl button:hover{color:var(--ink);border-color:var(--muted)}
+  .tw-ctrl[hidden]{display:none}
+  @media print{.top,.tw-ctrl,.more{display:none}.tw-g,.tw-g *{color:inherit}}
+</style>
+</head>
+<body>
+<nav class="top"><a href="/">← nesma</a><a href="/#writing">all writing</a></nav>
+
+<article>
+  <div class="meta">{% if page.type %}{{ page.type }} · {% endif %}{{ page.date | date: "%-d %B %Y" }} · {{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</div>
+  <h1 id="twTitle">{{ page.title }}</h1>
+  {% if page.summary %}<p class="sub">{{ page.summary }}</p>{% endif %}
+  <div class="body" id="twBody">
+{{ content }}
+  </div>
+</article>
+
+<footer class="end">
+  <p class="sign">— Nesma. Thoughts on this? <a href="/#hello">Write back.</a></p>
+  <div class="more">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span>← older</span>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url | relative_url }}" style="text-align:right"><span>newer →</span>{{ page.next.title }}</a>{% endif %}
+  </div>
+</footer>
+
+<div class="tw-ctrl" id="twCtrl" hidden><button type="button" id="twSkip">skip typing ⏭</button></div>
+
+<script>
+/* Typewriter: the article "writes itself" like someone typing it.
+   The title is typed first (with the odd typo, corrected), then each paragraph types
+   as it scrolls into view. Readers can skip, and it's off for people who prefer less motion. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const title = document.getElementById('twTitle'), body = document.getElementById('twBody');
+  const ctrl = document.getElementById('twCtrl'), skipBtn = document.getElementById('twSkip');
+  if (reduce) return;
+
+  const caret = document.createElement('span'); caret.className = 'tw-caret'; caret.setAttribute('aria-hidden', 'true');
+  const NEAR = 'qwertyuiopasdfghjklzxcvbnm';
+  let skipping = false;
+  const wait = ms => new Promise(r => setTimeout(r, skipping ? 0 : ms));
+
+  // split every text node of an element into a typed part and an invisible "ghost" part
+  function prep(el) {
+    const parts = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = []; while (walk.nextNode()) nodes.push(walk.currentNode);
+    for (const n of nodes) {
+      if (!n.textContent.length) continue;
+      const t = document.createElement('span'), g = document.createElement('span');
+      g.className = 'tw-g'; g.textContent = n.textContent;
+      const a = n.parentElement && n.parentElement.closest('a'); if (a) a.classList.add('tw-a');
+      n.replaceWith(t, g); parts.push({ t, g, a });
+    }
+    return parts;
+  }
+  // human-ish rhythm: quick letters, a breath after commas and full stops, rare typos
+  async function type(el, speed, typos) {
+    const parts = prep(el);
+    const total = parts.reduce((s, p) => s + p.g.textContent.length, 0);
+    const k = Math.min(1, 2600 / Math.max(1, total * speed));  // long paragraphs speed up (max ~2.6s each)
+    caret.classList.add('busy');
+    for (const p of parts) {
+      p.g.before(caret);
+      while (p.g.textContent.length) {
+        const ch = p.g.textContent[0];
+        if (!skipping && typos && /[a-z]/.test(ch) && Math.random() < typos) {
+          p.t.textContent += NEAR[Math.random() * NEAR.length | 0]; p.t.after(caret);
+          await wait(110 + Math.random() * 120); p.t.textContent = p.t.textContent.slice(0, -1); await wait(70);
+        }
+        p.t.textContent += ch; p.g.textContent = p.g.textContent.slice(1); p.t.after(caret);
+        if (skipping) continue;
+        let d = speed * (0.55 + Math.random() * 0.9);
+        if (/[,;:]/.test(ch)) d += 90; else if (/[.!?]/.test(ch)) d += 220;
+        await wait(d * k);
+      }
+      p.g.remove();
+      if (p.a && !p.a.querySelector('.tw-g')) p.a.classList.remove('tw-a');
+    }
+    caret.classList.remove('busy');
+  }
+
+  // blocks inside the article: text blocks type, images/code fade in
+  const blocks = [...body.children];
+  const TEXT = /^(P|H2|H3|H4|BLOCKQUOTE|UL|OL)$/;
+  blocks.forEach(b => b.classList.add('tw-hide'));
+  const queue = []; let running = false, idx = 0;
+  async function pump() {
+    if (running) return; running = true;
+    while (queue.length) {
+      const b = queue.shift();
+      b.classList.remove('tw-hide');
+      if (TEXT.test(b.tagName) && b.textContent.trim()) await type(b, /^H/.test(b.tagName) ? 34 : 14, 0);
+      else { b.classList.add('tw-fade'); await wait(200); }
+    }
+    running = false;
+    if (idx >= blocks.length) {
+      ctrl.hidden = true; caret.classList.remove('busy');
+      const last = [...blocks].reverse().find(b => TEXT.test(b.tagName) && b.textContent.trim());
+      if (last) (last.querySelector('li:last-child, p:last-child') || last).appendChild(caret); else caret.remove();
+    }
+  }
+  // type blocks in order, as the reader reaches them
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = blocks.indexOf(e.target);
+    while (idx <= i) { io.unobserve(blocks[idx]); queue.push(blocks[idx++]); }
+    pump();
+  }), { rootMargin: '0px 0px -12% 0px' });
+
+  skipBtn.addEventListener('click', () => {
+    skipping = true; ctrl.hidden = true;
+    while (idx < blocks.length) { io.unobserve(blocks[idx]); queue.push(blocks[idx++]); }
+    pump();
+  });
+
+  (async () => {
+    ctrl.hidden = false;
+    await wait(350);
+    await type(title, 62, 0.035);           // the title: slower, with the odd typo
+    blocks.forEach(b => io.observe(b));
+  })();
+})();
+</script>
+</body>
+</html>
