@@ -792,7 +792,7 @@ const LEARN = [
         'message in DNA': dna.length > 2000 ? dna.slice(0, 2000) + '…' : dna,
         _subject: 'New note from ' + d.name + ' (' + sampleId + ') via itsnesma.github.io', _template: 'box', _captcha: 'false',
         _honey: f.querySelector('[name=_honey]').value })
-    }).then(r => r.json().then(j => r.ok && String(j.success) === 'true')).catch(() => false);
+        }).then(r => r.json().then(j => { if (r.ok && String(j.success) === 'true') return true; window.sqWhy = j.message || ('HTTP ' + r.status); return false; })).catch(err => { window.sqWhy = 'network: ' + err.message; return false; });
     await wait(calm ? 0 : 450);
     phase.textContent = 'sequencing…';
     await runTrace(dna, calm ? 10 : 3200);
@@ -810,7 +810,7 @@ const LEARN = [
       phase.textContent = '✗ run failed: the sample could not be delivered';
       btn.disabled = false;
       st.className = 'sq-status err';
-      st.innerHTML = `Couldn't send just now. <a href="${mailto(d)}">Send it from your email app instead</a>.`;
+      st.innerHTML = `Couldn't send just now${window.sqWhy ? ' (' + esc(window.sqWhy) + ')' : ''}. <a href="${mailto(d)}">Send it from your email app instead</a>.`;
     }
   });
 })();
