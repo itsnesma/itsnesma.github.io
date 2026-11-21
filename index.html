@@ -190,6 +190,32 @@
   .card{padding:1.4rem}
   @container (min-width:561px){.book{grid-template-columns:minmax(200px,280px) 1fr;gap:3rem}.book h3{font-size:2.4rem}}
 
+    /* ---- the book: cover with a "coming soon" ribbon */
+  .bk{display:grid;grid-template-columns:minmax(220px,360px) 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  @container (max-width:620px){.bk{grid-template-columns:1fr}.bk-cover{max-width:300px;margin:0 auto}}
+  .bk-cover{position:relative;border-radius:4px 10px 10px 4px;overflow:hidden;aspect-ratio:1575/2079;
+    box-shadow:-10px 0 0 -5px rgba(0,0,0,.35) inset,0 40px 80px -30px rgba(255,225,90,.35),0 24px 50px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08);
+    transform:perspective(1200px) rotateY(-10deg);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .bk-cover:hover{transform:perspective(1200px) rotateY(-2deg)}
+  .bk-cover img{display:block;width:100%;height:100%;object-fit:cover}
+  .bk-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.12) 60%,transparent);z-index:1}
+  .bk-ribbon{position:absolute;z-index:2;bottom:30px;right:-62px;width:250px;transform:rotate(-45deg);text-align:center;
+    background:#ffe15a;color:#151515;font:700 .8rem/2.4 "Space Grotesk",sans-serif;letter-spacing:.28em;text-transform:uppercase;
+    box-shadow:0 6px 16px -4px rgba(0,0,0,.55);overflow:hidden}
+  .bk-ribbon::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:bkShine 4.5s ease-in-out infinite}
+  @keyframes bkShine{0%,65%{left:-60%}100%{left:130%}}
+  .bk-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.02em}
+  .bk-kicker b{color:#ffe15a;font-weight:500}
+  .bk h2{margin-top:.9rem}
+  .bk h2::after{background:#ffe15a;box-shadow:0 0 12px #ffe15a}
+  .bk-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.55rem);color:#e3e7fb;margin-top:1.1rem}
+  .bk-place{margin-top:.6rem;color:var(--muted);font-size:.98rem}
+  .bk-place span{display:inline-block;font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",serif;margin-left:.4rem}
+  .bk-soon{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.8rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#ffe15a}
+  .bk-soon::before{content:"";width:8px;height:8px;border-radius:50%;background:#ffe15a;box-shadow:0 0 10px #ffe15a;animation:pulse 1.6s ease-in-out infinite}
+  .bk .ud-links{margin-top:1.4rem}
+  @media (prefers-reduced-motion:reduce){.bk-ribbon::after,.bk-soon::before{animation:none}}
+  
   /* ---- under development: "still being sequenced" */
   .ud{max-width:52rem}
   .ud-head{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:1.1rem;letter-spacing:.02em}
@@ -282,17 +308,23 @@
     <div class="ud-links"><a class="btn primary" href="cv.html">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
   </div></div>
 </section>
-<section class="tab-page" id="tab-book" data-tab="book" data-title="The book" style="--k:var(--c)" hidden>
+<section class="tab-page" id="tab-book" data-tab="book" data-title="Two Dropped Pins" style="--k:#ffe15a" hidden>
 <div class="tab-inner">
-  <div class="ud" data-cov="0.55">
-    <div class="ud-head">&gt;<b>chr4</b>:book | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
-    <h2>The book</h2>
-    <p class="lede">This region is still being sequenced. A book on overlanding in the UAE, currently being edited.</p>
-    <div class="ud-reads" aria-hidden="true"></div>
-    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
-    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
-    <div class="ud-links"><a class="btn primary" href="cv.html">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
-  </div></div>
+  <div class="bk">
+    <div class="bk-cover">
+      <img src="book-cover.jpg" alt="Cover of Two Dropped Pins by Nesma Ait Belkacem: a black off-road vehicle parked among desert dunes under a blue sky, with the title in yellow." width="760" height="1003">
+      <div class="bk-ribbon">Coming soon</div>
+    </div>
+    <div>
+      <div class="bk-kicker">&gt;<b>chr4</b>:book | status: coming soon</div>
+      <h2>Two Dropped Pins</h2>
+      <p class="bk-sub">and everything in between.</p>
+      <p class="bk-place">The United Arab Emirates <span lang="ar" dir="rtl">دولة الامارات العربية المتحدة</span></p>
+      <div class="bk-soon">Coming soon</div>
+      <div class="ud-links"><a class="btn primary" href="mailto:700049478@uaeu.ac.ae?subject=Two%20Dropped%20Pins%3A%20notify%20me&body=Please%20let%20me%20know%20when%20Two%20Dropped%20Pins%20is%20out.">Notify me at launch</a></div>
+    </div>
+  </div>
+</div>
 </section>
 <section class="tab-page" id="tab-writing" data-tab="writing" data-title="Writing" style="--k:var(--a)" hidden>
 <div class="tab-inner">
