@@ -263,6 +263,60 @@
   .hl.done .note,.hl.done .hl-fields,.hl.done .hl-who,.hl.done .hl-send{display:none}
   @media (max-width:600px){.hl-fields{grid-template-columns:1fr}.note{margin-left:0;margin-right:0;padding-left:3rem;transform:rotate(-.5deg)}}
   @media (prefers-reduced-motion:reduce){.note{transition:none}}
+  
+    /* ---- learn: terminal library */
+  .lt{max-width:52rem}
+  .lt-kicker{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .lt-kicker b{color:var(--u);font-weight:500}
+  .lt h2{margin-top:.9rem}
+  .lt-win{margin-top:.4rem;border-radius:12px;overflow:hidden;background:#03050c;border:1px solid rgba(233,237,255,.12);
+    box-shadow:0 30px 70px -25px rgba(0,0,0,.85),0 0 0 1px rgba(0,0,0,.4),0 0 60px -30px rgba(110,231,168,.35);outline:none}
+  .lt-win:focus-visible{border-color:var(--u)}
+  .lt-bar{display:flex;align-items:center;gap:7px;padding:.65rem .9rem;background:#0b1022;border-bottom:1px solid rgba(233,237,255,.08)}
+  .lt-bar i{width:11px;height:11px;border-radius:50%;background:#ff5d8f}
+  .lt-bar i:nth-child(2){background:#ffb84d}.lt-bar i:nth-child(3){background:#6ee7a8}
+  .lt-bar span{flex:1;text-align:center;margin-right:40px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .lt-body{padding:1.2rem 1.3rem 1.4rem;font-family:var(--mono);font-size:clamp(.8rem,1.6vw,.95rem);line-height:1.7;color:#cfd5f2}
+  .lt-line{display:block;white-space:pre-wrap;word-break:break-word}
+  .lt-pr{color:var(--u)} .lt-pd{color:var(--muted)}
+  .lt-dim{color:#4b5378}
+  .lt-cat{display:flex;align-items:baseline;gap:.6ch;width:100%;margin-top:.9rem;padding:.15rem 0;background:none;border:0;cursor:pointer;
+    font:inherit;font-weight:700;color:var(--g);text-align:left}
+  .lt-cat:hover .lt-cname{text-decoration:underline;text-underline-offset:3px}
+  .lt-cat .lt-caret{display:inline-block;width:1ch;color:var(--muted);transition:transform .2s}
+  .lt-cat[aria-expanded=false] .lt-caret{transform:rotate(-90deg)}
+  .lt-cat .lt-count{font-weight:400;color:var(--muted);font-size:.85em}
+  .lt-group[hidden]{display:none}
+  .lt-item{display:grid;grid-template-columns:1fr auto;gap:.1rem 1rem;align-items:baseline;margin:.3rem 0 .3rem 2.4ch;padding:.5rem .7rem .5rem .8rem;
+    border-left:2px solid transparent;border-radius:0 8px 8px 0;text-decoration:none;color:#e9edff;transition:background .15s,border-color .15s}
+  a.lt-item:hover,a.lt-item.sel,a.lt-item:focus-visible{background:rgba(110,231,168,.07);border-left-color:var(--u);outline:none}
+  .lt-item.soon{color:#8a93b8}
+  .lt-gt{color:var(--t);font-weight:700}
+  .lt-item.soon .lt-gt{color:#4b5378}
+  .lt-tag{color:#05070f;background:var(--t);border-radius:4px;padding:0 .4em;font-size:.8em;font-weight:700;margin-left:.35em}
+  .lt-type{font-size:.72em;letter-spacing:.06em;margin-left:.5em;padding:.05em .45em;border-radius:4px;border:1px solid currentColor;vertical-align:.1em}
+  .lt-type.tool{color:var(--u)} .lt-type.video{color:var(--a)} .lt-type.guide{color:var(--c)}
+  .lt-go{white-space:nowrap;font-size:.86em;color:var(--u)}
+  .lt-item.soon .lt-go{color:#4b5378;font-style:italic}
+  a.lt-item:hover .lt-go,a.lt-item.sel .lt-go{text-decoration:underline;text-underline-offset:3px}
+  .lt-desc{grid-column:1/-1;color:var(--muted);font-size:.86em;line-height:1.55}
+  .lt-item.soon .lt-desc{color:#5d6690}
+  .lt-hint{margin-top:.9rem}
+  .lt-cur{display:inline-block;width:.6em;height:1.1em;margin-left:.15em;vertical-align:-.2em;background:var(--u);animation:ltBlink 1s steps(1) infinite}
+  @keyframes ltBlink{50%{opacity:0}}
+  .lt-win.typing .lt-step{visibility:hidden}
+  .lt-win.typing .lt-step.lt-show{visibility:visible}
+  @media (max-width:600px){.lt-item{grid-template-columns:1fr;margin-left:.6ch}.lt-go{margin-top:.15rem}.lt-bar span{margin-right:0}}
+  @media (prefers-reduced-motion:reduce){.lt-cur{animation:none}}
+  /* light page behind the dark terminal (learn tab only) */
+  #tab-learn{background:#f4f1ea;background-image:radial-gradient(rgba(15,20,36,.09) 1px,transparent 1.2px);background-size:22px 22px;color-scheme:light}
+  #tab-learn .lt h2{color:#0f1424}
+  #tab-learn .lt h2::after{background:#1f9d68;box-shadow:none}
+  #tab-learn .lede{color:#3d4560}
+  #tab-learn .lt-kicker{color:#6b7390}
+  #tab-learn .lt-kicker b{color:#1f9d68}
+  #tab-learn .lt-win{border-color:#0b1022;box-shadow:0 30px 60px -28px rgba(15,20,36,.55),0 12px 24px -12px rgba(15,20,36,.35)}
+  
   /* ---- under development: "still being sequenced" */
   .ud{max-width:52rem}
   .ud-head{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:1.1rem;letter-spacing:.02em}
@@ -333,15 +387,117 @@
 </section>
 <section class="tab-page" id="tab-learn" data-tab="learn" data-title="Learn" style="--k:var(--u)" hidden>
 <div class="tab-inner">
-  <div class="ud" data-cov="0.78">
-    <div class="ud-head">&gt;<b>chr2</b>:learn | status: <span class="ud-state">sequencing</span> | coverage <span class="ud-pct">0</span>%</div>
+  <div class="lt">
+    <div class="lt-kicker">&gt;<b>chr2</b>:learn | tools · videos · guides</div>
     <h2>Learn</h2>
-    <p class="lede">This region is still being sequenced. AmpliLearn, MetaLearn and other hands-on bioinformatics tools.</p>
-    <div class="ud-reads" aria-hidden="true"></div>
-    <div class="ud-meter"><div class="ud-bar"><i></i></div><span class="ud-call">basecalling… <span class="ud-n">0</span> bp called</span></div>
-    <p class="ud-note">Unread bases are shown as <code>N</code>, which is how FASTA marks a base that hasn't been sequenced yet.</p>
-    <div class="ud-links"><a class="btn primary" href="cv.html">Read the CV meanwhile →</a><a class="btn" href="mailto:700049478@uaeu.ac.ae">Email me</a></div>
-  </div></div>
+    <p class="lede">Free learning materials for anyone starting out in microbiome research or a PhD: interactive tools, video tutorials and practical guides. More is on the way.</p>
+    <div class="lt-win" id="ltWin" tabindex="0" aria-label="Learning library. Use the arrow keys and enter to open an item.">
+      <div class="lt-bar" aria-hidden="true"><i></i><i></i><i></i><span>nesma@genome: ~/learn</span></div>
+      <div class="lt-body" id="ltBody"></div>
+    </div>
+  </div>
+</div>
+<script>
+/* =====================================================================
+   YOUR LEARNING LIBRARY: edit this list to add, change or remove things.
+   - type:  'tool', 'video' or 'guide'
+   - soon:  true  -> shows "coming soon" and can't be clicked yet
+            remove it (and add href) when the item is ready
+   - href:  the link (a tool, a YouTube video, a blog post...)
+   - tag:   optional little label, like '16S'
+   ===================================================================== */
+const LEARN = [
+  { category: 'genomics', items: [
+    { title: 'amplicon sequencing', tag: '16S', type: 'tool', href: 'https://meeg-lab.github.io/amplilearn/', open: 'open AmpliLearn',
+      desc: 'step-by-step 16S & ITS amplicon analysis: upload your OTU × sample matrix and explore it in the browser' },
+    { title: 'shotgun metagenome sequencing', type: 'tool', href: 'https://meeg-lab.github.io/metalearn/', open: 'open MetaLearn',
+      desc: 'simulates a full metagenome analysis, without the computing power it usually needs' }
+  ]},
+  { category: 'video tutorials', items: [
+    { title: 'analysing 16S data with AmpliLearn', type: 'video', soon: true, desc: 'a guided walkthrough of the tool, start to finish' },
+    { title: 'shotgun metagenomics, from reads to functions', type: 'video', soon: true, desc: 'what happens at each step of a metagenome analysis' }
+  ]},
+  { category: 'phd tips', items: [
+    { title: 'preparing for your comprehensive exam', type: 'guide', soon: true, desc: 'what helped me get through mine' },
+    { title: 'writing your research proposal', type: 'guide', soon: true },
+    { title: 'staying on top of the literature', type: 'guide', soon: true }
+  ]}
+];
+
+(() => {
+  const win = document.getElementById('ltWin'), body = document.getElementById('ltBody');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ACTION = { tool: 'open', video: '▶ watch', guide: 'read' };
+  const live = LEARN.flatMap(c => c.items).filter(i => !i.soon && i.href).length;
+  const soon = LEARN.flatMap(c => c.items).length - live;
+
+  let html = `<span class="lt-line lt-step"><span class="lt-pr">nesma@genome</span><span class="lt-pd">:~/learn$</span> <span id="ltCmd">tree --all</span></span>`;
+  LEARN.forEach((c, ci) => {
+    html += `<button type="button" class="lt-cat lt-step" aria-expanded="true" aria-controls="ltG${ci}"><span class="lt-caret">▾</span><span>&gt;&gt; <span class="lt-cname">${esc(c.category)}</span></span><span class="lt-count">(${c.items.length})</span></button><div class="lt-group" id="ltG${ci}">`;
+    c.items.forEach(it => {
+      const ready = !it.soon && it.href;
+      const tag = it.tag ? `<span class="lt-tag">${esc(it.tag)}</span>` : '';
+      const type = `<span class="lt-type ${esc(it.type)}">${esc(it.type)}</span>`;
+      const go = ready ? `${esc(it.open || ACTION[it.type] || 'open')} ${it.type === 'video' ? '' : '↗'}` : 'coming soon';
+      const desc = it.desc ? `<span class="lt-desc"># ${esc(it.desc)}</span>` : '';
+      const inner = `<span><span class="lt-gt">&gt;</span> ${esc(it.title)}${tag}${type}</span><span class="lt-go">${go}</span>${desc}`;
+      html += ready
+        ? `<a class="lt-item lt-step" href="${esc(it.href)}" target="_blank" rel="noopener">${inner}</a>`
+        : `<div class="lt-item soon lt-step" aria-label="${esc(it.title)}, coming soon">${inner}</div>`;
+    });
+    html += `</div>`;
+  });
+  html += `<span class="lt-line lt-hint lt-dim lt-step"># ${live} ready · ${soon} coming soon · click a folder to open or close it</span>`;
+  html += `<span class="lt-line lt-step"><span class="lt-pr">nesma@genome</span><span class="lt-pd">:~/learn$</span><span class="lt-cur"></span></span>`;
+  body.innerHTML = html;
+
+  // folders open and close
+  body.querySelectorAll('.lt-cat').forEach(b => b.addEventListener('click', () => {
+    const open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!open));
+    document.getElementById(b.getAttribute('aria-controls')).hidden = open;
+  }));
+
+  // typing animation the first time the page is opened
+  const cmd = document.getElementById('ltCmd'), full = cmd.textContent, steps = [...body.querySelectorAll('.lt-step')];
+  let played = false;
+  function play() {
+    if (played) return; played = true;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    win.classList.add('typing'); cmd.textContent = ''; steps[0].classList.add('lt-show');
+    let i = 0;
+    const type = setInterval(() => {
+      cmd.textContent = full.slice(0, ++i);
+      if (i < full.length) return;
+      clearInterval(type);
+      steps.slice(1).forEach((s, k) => setTimeout(() => {
+        s.classList.add('lt-show');
+        if (k === steps.length - 2) win.classList.remove('typing');
+      }, 220 + k * 110));
+    }, 55);
+  }
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); })).observe(win);
+
+  // arrow keys move between ready items, enter opens
+  const links = [...body.querySelectorAll('a.lt-item')];
+  let sel = -1;
+  const mark = () => links.forEach((l, k) => l.classList.toggle('sel', k === sel));
+  win.addEventListener('keydown', e => {
+    const vis = links.filter(l => !l.closest('.lt-group').hidden);
+    if (!vis.length) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      let v = vis.indexOf(links[sel]);
+      v = e.key === 'ArrowDown' ? (v + 1) % vis.length : (v - 1 + vis.length) % vis.length;
+      sel = links.indexOf(vis[v]); mark();
+    } else if (e.key === 'Enter' && sel >= 0 && e.target === win) {
+      window.open(links[sel].href, '_blank', 'noopener');
+    }
+  });
+  links.forEach((l, k) => l.addEventListener('mouseenter', () => { sel = k; mark(); }));
+  win.addEventListener('mouseleave', () => { sel = -1; mark(); });
+})();
+</script>
 </section>
 <section class="tab-page" id="tab-travels" data-tab="travels" data-title="Travels" style="--k:var(--t)" hidden>
 <div class="tab-inner">
