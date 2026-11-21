@@ -24,6 +24,3 @@ As a conclusion, machine learning is the future of time-sensitive severe weather
 
 
 
-## A heading, if you want one
-
-You can use **bold**, *italic*, and [links](https://example.com).
